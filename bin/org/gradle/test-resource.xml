@@ -1,1 +1,9 @@
 <some-resource/>
+<pos-demo.application>
+	<connection>
+		<implementation>postgres</implementation>
+		<schema>pos-test</schema>
+		<username>test</username>
+		<password></password>
+	</connection>
+</pos-demo.application>
