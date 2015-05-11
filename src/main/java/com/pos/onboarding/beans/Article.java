@@ -5,13 +5,14 @@ import java.math.BigDecimal;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 /**
- * This class is used to hold the article data.
+ * This class is used to hold the article data.-
  * 
  * @author Mario Pescarmona
  *
  */
 public class Article {
 	private Long id;
+	private Long categoryId;
 	private String name;
 	private String description;
 	private BigDecimal price;
@@ -23,6 +24,14 @@ public class Article {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Long getCategoryId() {
+		return categoryId;
+	}
+
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {

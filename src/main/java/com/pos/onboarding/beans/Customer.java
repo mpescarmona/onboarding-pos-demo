@@ -2,6 +2,12 @@ package com.pos.onboarding.beans;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+/**
+ * This class is used to hold the customer data.-
+ * 
+ * @author Mario Pescarmona
+ *
+ */
 public class Customer {
 	private Long id;
 	private String firstName;

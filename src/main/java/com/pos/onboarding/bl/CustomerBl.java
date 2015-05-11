@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import com.pos.onboarding.beans.Customer;
 
 public class CustomerBl {
-	private static final Logger logger = LogManager.getLogger(CustomerBl.class);
+	private static final Logger log = LogManager.getLogger(CustomerBl.class);
 	private Customer customer;
 
 	public Customer getCustomer() {
@@ -19,14 +19,14 @@ public class CustomerBl {
 	}
 
 	public Customer createCustomer(Customer newCustomer) {
-		logger.trace("Enter method createCustomer. method params: {}",
+		log.trace("Enter method createCustomer. method params: {}",
 				newCustomer);
 
 		if (validateCustomer(newCustomer)) {
 			this.customer = newCustomer;
 		}
 
-		logger.trace(
+		log.trace(
 				"Return method createCustomer. method params: {}. Result: {}",
 				newCustomer, customer);
 
@@ -34,35 +34,35 @@ public class CustomerBl {
 	}
 
 	public boolean validateCustomer(Customer customer) {
-		logger.trace("Enter method validateCustomer. method params: {}",
+		log.trace("Enter method validateCustomer. method params: {}",
 				customer);
 		boolean isValid = true;
 
-		logger.debug("validating customer first name.");
+		log.debug("validating customer first name.");
 		if (StringUtils.isBlank(customer.getFirstName())) {
-			logger.error("The customer first name must be provided");
+			log.error("The customer first name must be provided");
 			isValid = false;
 		}
 
-		logger.debug("validating customer last name.");
+		log.debug("validating customer last name.");
 		if (StringUtils.isBlank(customer.getLastName())) {
-			logger.error("The customer last name must be provided");
+			log.error("The customer last name must be provided");
 			isValid = false;
 		}
 
-		logger.debug("validating customer phone number.");
+		log.debug("validating customer phone number.");
 		if (StringUtils.isBlank(customer.getPhoneNumber())) {
-			logger.error("The customer phone number must be provided");
+			log.error("The customer phone number must be provided");
 			isValid = false;
 		}
 
-		logger.debug("validating customer email.");
+		log.debug("validating customer email.");
 		if (StringUtils.isBlank(customer.getEmail())) {
-			logger.error("The customer email must be provided");
+			log.error("The customer email must be provided");
 			isValid = false;
 		}
 
-		logger.trace(
+		log.trace(
 				"Return method validateCustomer. method params: {}. Result: {}",
 				customer, isValid);
 

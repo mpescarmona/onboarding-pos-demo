@@ -21,7 +21,7 @@ public class CustomerBlTest {
 		CustomerBl customerBl = new CustomerBl();
 
 		assertTrue(customerBl.validateCustomer(validCustomer));
-		customerBl.createCustomer(validCustomer);
+//		customerBl.createCustomer(validCustomer);
 		assertEquals(validCustomer, customerBl.createCustomer(validCustomer));
 	}
 
