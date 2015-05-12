@@ -1,1 +1,13 @@
-<some-element/>
+<some-element />
+<pos-demo.application>
+	<connection>
+		<implementation = "postgres">
+			<schema>pos-test</schema>
+			<username>test</username>
+			<password></password>
+		</implementation>
+		<implementation = "CSV">
+			<base-folder>./csv/</base-folder>
+		</implementation>
+	</connection>
+</pos-demo.application>
