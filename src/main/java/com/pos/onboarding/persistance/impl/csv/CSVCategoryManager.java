@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl;
+package com.pos.onboarding.persistance.impl.csv;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -111,12 +111,12 @@ public class CSVCategoryManager implements CategoryManager {
 					"The provided category does not exists. Method prams: {}. Result: {}",
 					category, result);
 		} else {
-			log.debug(
-					"The provided category was successfully removed. Method prams: {}. Result: {}",
-					category, result);
 			categories.remove(existingCategory);
 			writeCategoriesToCsvFile();
 			result = true;
+			log.debug(
+					"The provided category was successfully removed. Method prams: {}. Result: {}",
+					category, result);
 		}
 
 		log.trace(

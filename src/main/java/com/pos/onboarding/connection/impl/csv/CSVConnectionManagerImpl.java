@@ -1,4 +1,4 @@
-package com.pos.onboarding.connection.impl;
+package com.pos.onboarding.connection.impl.csv;
 
 import com.pos.onboarding.connection.ConnectionManager;
 

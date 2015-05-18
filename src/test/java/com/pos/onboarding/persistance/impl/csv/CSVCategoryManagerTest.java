@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl;
+package com.pos.onboarding.persistance.impl.csv;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.persistance.CategoryManager;
 
 public class CSVCategoryManagerTest {
 	private static final Long ARTICLE_ID_1 = 1l;
@@ -23,7 +24,7 @@ public class CSVCategoryManagerTest {
 	private static final Long ARTICLE_ID_NEW = 99l;
 	private static final String ARTICLE_NAME_NEW = "New Category";
 
-	private CSVCategoryManager categoryManager = new CSVCategoryManager();
+	private CategoryManager categoryManager = new CSVCategoryManager();
 
 	@Before
 	public void init() {
