@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres;
+package com.pos.onboarding.persistance.impl.postgres.mapper;
 
 import java.util.List;
 
@@ -38,5 +38,5 @@ public interface CategoryMapper {
 	void deleteCategory(Long id);
 	
 	@Select(SELECT_ALL)
-	List<Category> selectAll();
+	List<Category> selectAllCategories();
 }

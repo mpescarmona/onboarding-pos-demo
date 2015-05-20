@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres;
+package com.pos.onboarding.persistance.impl.postgres.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import com.pos.onboarding.beans.Category;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper;
 
 public class CategoryDAO implements CategoryManager{
 	private static final Logger log = LogManager.getLogger(CategoryDAO.class);
@@ -111,13 +112,13 @@ public class CategoryDAO implements CategoryManager{
 	}
 
 	@Override
-	public List<Category> getAll() {
+	public List<Category> getAllCategories() {
 		log.trace("Enter method getAll.");
 
 		List<Category> result = new ArrayList<Category>();
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
-		result = mapper.selectAll();
+		result = mapper.selectAllCategories();
 		session.close();
 
 		log.trace("Return method getAll. Result: {}", result);

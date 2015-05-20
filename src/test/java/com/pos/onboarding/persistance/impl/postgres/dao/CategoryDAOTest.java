@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres;
+package com.pos.onboarding.persistance.impl.postgres.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import com.pos.onboarding.beans.Category;
 import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistance.impl.postgres.dao.CategoryDAO;
 
 public class CategoryDAOTest {
 	private static final Long ARTICLE_ID_1 = 1l;
@@ -28,7 +29,7 @@ public class CategoryDAOTest {
 
 	@Before
 	public void init() {
-		List<Category> categories = categoryManager.getAll();
+		List<Category> categories = categoryManager.getAllCategories();
 		for (Category category : categories) {
 			categoryManager.removeCategory(category);
 		}

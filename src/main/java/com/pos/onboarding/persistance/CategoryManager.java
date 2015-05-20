@@ -46,6 +46,6 @@ public interface CategoryManager {
 	 * 
 	 * @return
 	 */
-	List<Category> getAll();
+	List<Category> getAllCategories();
 
 }

@@ -15,6 +15,7 @@
     </environment>
   </environments>
   <mappers>
-    <mapper class="com.pos.onboarding.persistance.impl.postgres.CategoryMapper" />
+    <mapper class="com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper" />
+    <mapper class="com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper" />
   </mappers>
 </configuration>

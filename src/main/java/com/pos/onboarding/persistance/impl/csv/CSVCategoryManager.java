@@ -126,7 +126,7 @@ public class CSVCategoryManager implements CategoryManager {
 	}
 
 	@Override
-	public List<Category> getAll() {
+	public List<Category> getAllCategories() {
 		log.trace("Enter method getAll.");
 
 		List<Category> result = new ArrayList<Category>();

@@ -12,10 +12,10 @@ import com.pos.onboarding.beans.Article;
 public class ArticleBlTest {
 
 	private static final Long ARTICLE_ID = 1l;
-	private static final BigDecimal ARTICLE_PRICE = new BigDecimal(150);
 	private static final Long ARTICLE_CATEGORY_ID = 1l;
 	private static final String ARTICLE_NAME = "Test Article";
 	private static final String ARTICLE_DESCRIPTION = "Test Description";
+	private static final BigDecimal ARTICLE_PRICE = new BigDecimal("150.15");
 	private static final Long ARTICLE_INVENTORY = 10l;
 
 	@Test
@@ -33,8 +33,8 @@ public class ArticleBlTest {
 		article.setId(ARTICLE_ID);
 		article.setCategoryId(ARTICLE_CATEGORY_ID);
 		article.setName(ARTICLE_NAME);
-		article.setPrice(ARTICLE_PRICE);
 		article.setDescription(ARTICLE_DESCRIPTION);
+		article.setPrice(ARTICLE_PRICE);
 		article.setInventory(ARTICLE_INVENTORY);
 
 		return article;
