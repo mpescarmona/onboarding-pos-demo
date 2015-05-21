@@ -1,6 +1,7 @@
 # Gradle configurations
 .gradle
 build/
+repos/
 
 # Ignore Gradle GUI config
 gradle-app.setting
@@ -33,7 +34,7 @@ tmp/
 *.swp
 *~.nib
 local.properties
-.settings/**
+.settings/
 .loadpath
 
 # Eclipse Core
