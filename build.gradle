@@ -1,5 +1,9 @@
+apply plugin: 'war'
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+
 
 sourceCompatibility = 1.7
 version = '1.0'
@@ -19,6 +23,10 @@ configurations {
 }
 dependencies {
     postgresql "postgresql:postgresql:9.1-901-1.jdbc4"
+}
+
+war {
+	baseName = "pos-demo"
 }
 
 dependencies {
@@ -42,6 +50,9 @@ dependencies {
 	compile "org.springframework:spring-webmvc:${springVersion}"
 	compile 'org.mybatis:mybatis-spring:1.2.0'
 //	compile 'mysql:mysql-connector-java:5.1.31'
+    compile 'javax.servlet:jstl:1.2'
+
+	providedCompile 'javax.servlet:servlet-api:2.5'
     
 	testCompile("junit:junit:4.11") 
 }

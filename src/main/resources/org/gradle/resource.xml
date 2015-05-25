@@ -1,4 +1,3 @@
-<some-element />
 <pos-demo.application>
 	<connection>
 		<implementation = "postgres">
