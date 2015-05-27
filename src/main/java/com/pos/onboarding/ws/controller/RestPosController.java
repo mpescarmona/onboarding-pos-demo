@@ -49,6 +49,9 @@ public class RestPosController {
 		List<Category> result = new ArrayList<Category>();
 		result = categoryManager.getAllCategories();
 
+		log.debug(
+				"Return of request to get all categories. Method params: {}. Result: {}", result);
+
 		return result;
 	}
 
@@ -64,6 +67,9 @@ public class RestPosController {
 			throw new ResourceNotFoundException(id);
 		}
 
+		log.debug(
+				"Return of request to get category by Id. Method params: {}. Result: {}", id, category);
+		
 		return category;
 	}
 
@@ -74,7 +80,12 @@ public class RestPosController {
 		log.debug("Provider has received request to add new category");
 
 		// Call service to here
-		return categoryManager.createCategory(category);
+		Category newCategory = categoryManager.createCategory(category); 
+
+		log.debug(
+				"Return of request to add new category. Method params: {}. Result: {}", category, newCategory);
+		
+		return newCategory;
 	}
 
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.PUT, headers = "Accept=application/xml, application/json")
@@ -85,15 +96,25 @@ public class RestPosController {
 
 		// Call service here
 		category.setId(id);
-		return categoryManager.updateCategory(category);
+		boolean result = categoryManager.updateCategory(category);
+
+		log.debug(
+				"Return of request to edit category by Id. Method params: {}. Result: {}", id, result);
+		
+		return result;
 	}
 
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE, headers = "Accept=application/xml, application/json")
-	public @ResponseBody void deleteCategory(@RequestBody Category category) {
+	public @ResponseBody boolean deleteCategory(@RequestBody Category category) {
 		log.debug("Provider has received request to delete category with id: "
 				+ category.getId());
 
 		// Call service here
-		categoryManager.removeCategory(category);
+		boolean result = categoryManager.removeCategory(category);
+
+		log.debug(
+				"Return of request to delete category by Id. Method params: {}. Result: {}", category, result);
+		
+		return result;
 	}
 }
