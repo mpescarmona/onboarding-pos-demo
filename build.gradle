@@ -25,9 +25,9 @@ dependencies {
     postgresql "postgresql:postgresql:9.1-901-1.jdbc4"
 }
 
-war {
-	baseName = "pos-demo"
-}
+//war {
+//	baseName = "pos-demo"
+//}
 
 dependencies {
 	compile("org.apache.logging.log4j:log4j-api:2.1")
@@ -44,7 +44,8 @@ dependencies {
 
 	/** spring framework and mybatis dependency **/
 //	def springVersion = '3.2.2.RELEASE'
-	def springVersion = '4.1.6.RELEASE'
+//	def springVersion = '4.1.6.RELEASE'
+	def springVersion = '3.0.5.RELEASE'
 	compile "org.springframework:spring-jdbc:${springVersion}"
 	compile "org.springframework:spring-tx:${springVersion}"
 	compile "org.springframework:spring-webmvc:${springVersion}"
@@ -55,6 +56,15 @@ dependencies {
 	providedCompile 'javax.servlet:servlet-api:2.5'
     
 	testCompile("junit:junit:4.11") 
+}
+
+tasks.withType(JavaCompile) {  
+    options.encoding = 'UTF-8'  
+}  
+
+task deploy(type: Copy) {
+    from war
+    into "deploy/"
 }
 
 test {

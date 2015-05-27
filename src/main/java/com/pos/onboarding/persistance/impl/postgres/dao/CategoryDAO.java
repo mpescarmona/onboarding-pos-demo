@@ -6,12 +6,16 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.onboarding.beans.Category;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CategoryManager;
 import com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper;
 
+@Service("categoryServicePostgres")
+@Transactional
 public class CategoryDAO implements CategoryManager{
 	private static final Logger log = LogManager.getLogger(CategoryDAO.class);
 	

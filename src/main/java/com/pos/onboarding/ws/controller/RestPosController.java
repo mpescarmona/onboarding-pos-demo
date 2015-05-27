@@ -32,7 +32,7 @@ public class RestPosController {
 	protected static final Logger log = LogManager
 			.getLogger(RestPosController.class);
 
-	@Resource(name = "categoryService")
+	@Resource(name = "categoryServicePostgres")
 	private CategoryManager categoryManager;
 
 	/**
@@ -51,19 +51,6 @@ public class RestPosController {
 
 		return result;
 	}
-
-	// @RequestMapping(value = "/category/count",
-	// method = RequestMethod.GET,
-	// headers="Accept=application/xml, application/json")
-	// public @ResponseBody Long getCategoryCount() {
-	// log.debug("Provider has received request to get category count");
-	//
-	// // Call service here
-	// Long result = 0l;
-	// result = categoryManager.getCount();
-	//
-	// return result;
-	// }
 
 	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	@ResponseBody
