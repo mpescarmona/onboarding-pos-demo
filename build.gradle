@@ -30,8 +30,18 @@ dependencies {
 //}
 
 dependencies {
-	compile("org.apache.logging.log4j:log4j-api:2.1")
-	compile("org.apache.logging.log4j:log4j-core:2.1")
+	def logVersion = '2.1'
+	/** spring framework and mybatis dependency **/
+//	def springVersion = '3.2.2.RELEASE'
+//	def springVersion = '4.1.6.RELEASE'
+	def springVersion = '3.0.5.RELEASE'
+
+	def jacksonVersion = '1.7.2'
+	def mybatisVersion = '1.2.0'
+	def junitVersion = '4.11'
+
+	compile "org.apache.logging.log4j:log4j-api:${logVersion}"
+	compile "org.apache.logging.log4j:log4j-core:${logVersion}"
 	compile("org.apache.commons:commons-lang3:3.0")
 	compile("commons-collections:commons-collections:3.2")
 	compile("commons-cli:commons-cli:1.2")
@@ -42,20 +52,20 @@ dependencies {
 //	compile("org.hibernate:hibernate-entitymanager:4.3.10.Final")
 //	compile("org.hsqldb:hsqldb:2.2.9")
 
-	/** spring framework and mybatis dependency **/
-//	def springVersion = '3.2.2.RELEASE'
-//	def springVersion = '4.1.6.RELEASE'
-	def springVersion = '3.0.5.RELEASE'
 	compile "org.springframework:spring-jdbc:${springVersion}"
 	compile "org.springframework:spring-tx:${springVersion}"
 	compile "org.springframework:spring-webmvc:${springVersion}"
-	compile 'org.mybatis:mybatis-spring:1.2.0'
-//	compile 'mysql:mysql-connector-java:5.1.31'
-    compile 'javax.servlet:jstl:1.2'
+	compile "org.mybatis:mybatis-spring:${mybatisVersion}"
+//	compile "mysql:mysql-connector-java:5.1.31"
+    compile "javax.servlet:jstl:1.2"
 
-	providedCompile 'javax.servlet:servlet-api:2.5'
+
+    compile "org.codehaus.jackson:jackson-core-asl:${jacksonVersion}"
+    compile "org.codehaus.jackson:jackson-mapper-asl:${jacksonVersion}"
+
+	providedCompile "javax.servlet:servlet-api:2.5"
     
-	testCompile("junit:junit:4.11") 
+	testCompile "junit:junit:${junitVersion}" 
 }
 
 tasks.withType(JavaCompile) {  

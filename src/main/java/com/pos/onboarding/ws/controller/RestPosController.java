@@ -27,6 +27,7 @@ import com.pos.onboarding.ws.exception.ResourceNotFoundException;
  * Only GET and POST will return values PUT and DELETE will not.
  */
 @Controller
+@RequestMapping("/category")
 public class RestPosController {
 
 	protected static final Logger log = LogManager
@@ -39,7 +40,7 @@ public class RestPosController {
 	 * Category methods
 	 */
 
-	@RequestMapping(value = "/categories", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	public @ResponseBody List<Category> getAllCategories(
 			@RequestParam(value = "page", required = false, defaultValue = "0") int pageNumber,
 			@RequestParam(value = "size", required = false, defaultValue = "100") int pageSize) {
@@ -55,7 +56,7 @@ public class RestPosController {
 		return result;
 	}
 
-	@RequestMapping(value = "/category/{id}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	public Category getCategory(@PathVariable("id") Long id) {
 		log.debug("Provider has received request to get category with id: "
@@ -73,7 +74,7 @@ public class RestPosController {
 		return category;
 	}
 
-	@RequestMapping(value = "/category", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
 	public Category addCategory(@RequestBody Category category) {
@@ -88,7 +89,7 @@ public class RestPosController {
 		return newCategory;
 	}
 
-	@RequestMapping(value = "/category/{id}", method = RequestMethod.PUT, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, headers = "Accept=application/xml, application/json")
 	public @ResponseBody boolean updateCategory(@PathVariable("id") Long id,
 			@RequestBody Category category) {
 		log.debug("Provider has received request to edit category with id: "
@@ -104,7 +105,7 @@ public class RestPosController {
 		return result;
 	}
 
-	@RequestMapping(value = "/category/{id}", method = RequestMethod.DELETE, headers = "Accept=application/xml, application/json")
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/xml, application/json")
 	public @ResponseBody boolean deleteCategory(@RequestBody Category category) {
 		log.debug("Provider has received request to delete category with id: "
 				+ category.getId());
