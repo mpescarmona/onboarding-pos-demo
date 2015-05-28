@@ -30,7 +30,7 @@ import com.pos.onboarding.util.CustomJsonParser;
  * Handles and retrieves recipe data
  */
 @Controller
-@RequestMapping("/ui/category")
+@RequestMapping("/ui")
 public class UiPosController {
 	
 	@Value("${webservice.url}")
@@ -92,7 +92,6 @@ public class UiPosController {
 			}
 		});
 	}
-	
 	
 	
 	/**
