@@ -1,0 +1,24 @@
+/*!
+ * Pos Demo v1.0.0
+ *
+ * This file stores the styling for the Pos Demo UI
+ */
+
+/*! Override the default bottom margin configuration provided by twitter bootstrap.
+    This style is used to show forms in a more compact way.-
+*/
+.form-horizontal .control-group {
+    margin-bottom: 2px;
+}
+
+
+.higher-modal {
+    width: 700px; 
+/*     margin-top: -300px !important; */
+    margin-left:  -350px !important; 
+}
+
+.higher-modal-body {
+    max-height: 400px;
+    min-height: 250px;
+}
