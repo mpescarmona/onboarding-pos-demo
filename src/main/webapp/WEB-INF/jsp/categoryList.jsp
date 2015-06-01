@@ -33,7 +33,7 @@
 					<c:url var="deleteUrl" value="/ui/category/delete?id=${category.id}" />
 					<tr>
 						<td><c:out value="${category.id}" /></td>
-						<td><c:out value="${category.category}" /></td>
+						<td><c:out value="${category.categoryName}" /></td>
 						<td>
 							<a href="${editUrl}" class="btn" >Edit</a>
 							<a href="${deleteUrl}" class="btn" >Delete</a>

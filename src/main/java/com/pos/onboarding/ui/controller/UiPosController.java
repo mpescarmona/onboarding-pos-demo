@@ -115,13 +115,14 @@ public class UiPosController {
     	// Retrieve all Categories by delegating the call to API
     	log.debug("Calling WS");
 		String showPage = LinksUtil.getPageParams(page, size, filter, sort, order);
-    	List<Category> categories = restTemplate.getForObject(BASE_URL + "/ws/categories" + showPage, List.class);
+    	List<Category> categories = restTemplate.getForObject(BASE_URL + "/ws/category" + showPage, List.class);
     	
     	log.debug("categories [" + categories.toString() + "]");
 
     	model.addAttribute("categories", categories);
     	
-    	Long count = restTemplate.getForObject(BASE_URL + "/ws/category/count", Long.class);
+//    	Long count = restTemplate.getForObject(BASE_URL + "/ws/category/count", Long.class);
+    	Long count = (long) categories.size();
     	List<Link> links = LinksUtil.getPageLinks(page, size,  filter, sort, order, count);
     	
     	model.addAttribute("links", links);

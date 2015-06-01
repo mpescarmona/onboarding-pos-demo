@@ -10,7 +10,7 @@
 				<c:url var="abbrevsUrl" value="/ui/abbrevs" />
 				<div class="row">
 					<div class="span12">
-						<h1>Seriouschef</h1>
+						<h1>Pos Demo</h1>
 						<div class="navbar">
 						  <div class="navbar-inner">
 						    <ul class="nav">
