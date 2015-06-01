@@ -18,6 +18,7 @@ public interface CategoryMapper {
 	static final String UPDATE = "UPDATE category SET categoryname=#{categoryName} WHERE id =#{id}";
 	static final String DELETE = "DELETE FROM category WHERE id =#{categoryId}";
 	static final String SELECT_ALL = "SELECT id, categoryname from category";
+	static final String SELECT_NEXT_ID = "SELECT max(id) + 1 from category";
 
 	@Results(
 			{
@@ -39,4 +40,7 @@ public interface CategoryMapper {
 	
 	@Select(SELECT_ALL)
 	List<Category> selectAllCategories();
+	
+	@Select(SELECT_NEXT_ID)
+	Long selectNextId();
 }

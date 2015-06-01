@@ -36,10 +36,10 @@ public interface CategoryManager {
 	/**
 	 * Removes the given {@l Category} instance
 	 * 
-	 * @param category
+	 * @param categoryId
 	 * @return true when the category was properly removed, otherwise, false.
 	 */
-	public boolean removeCategory(Category category);
+	public boolean removeCategory(Long categoryId);
 
 	/**
 	 * Retrieves all the Categories.

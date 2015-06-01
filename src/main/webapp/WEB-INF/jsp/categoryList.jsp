@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<c:url var="addUrl" value="/ui/category/add" />
+<c:url var="addUrl" value="/ui/category-ui/add" />
 <%@ include file="_commonLinks.jsp" %>
 
 <html>
@@ -29,8 +29,8 @@
 				</thead>
 				<tbody>
 				<c:forEach items="${categories}" var="category">
-					<c:url var="editUrl" value="/ui/category/edit?id=${category.id}" />
-					<c:url var="deleteUrl" value="/ui/category/delete?id=${category.id}" />
+					<c:url var="editUrl" value="/ui/category-ui/edit?id=${category.id}" />
+					<c:url var="deleteUrl" value="/ui/category-ui/delete?id=${category.id}" />
 					<tr>
 						<td><c:out value="${category.id}" /></td>
 						<td><c:out value="${category.categoryName}" /></td>

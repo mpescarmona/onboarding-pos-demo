@@ -1,6 +1,6 @@
 			<div class="container">
 				<c:url var="recipesUrl" value="/ui/recipes" />
-				<c:url var="categoriesUrl" value="/ui/categories" />
+				<c:url var="categoriesUrl" value="/ui/category-ui" />
 				<c:url var="measuresUrl" value="/ui/measures" />
 				<c:url var="toolsUrl" value="/ui/tools" />
 				<c:url var="occasionsUrl" value="/ui/occasions" />
@@ -20,17 +20,9 @@
 						      	</a>
 						      	<ul class="dropdown-menu">
 									<li><a href="${categoriesUrl}">Categories</a></li>
-									<li><a href="${measuresUrl}">Measures</a></li>
-									<li><a href="${toolsUrl}">Tools</a></li>
-									<li><a href="${occasionsUrl}">Occasions</a></li>
-									<li><a href="${originsUrl}">Origins</a></li>
-									<li><a href="${seasonsUrl}">Seasons</a></li>
-									<li><a href="${usersUrl}">Users</a></li>
-									<li><a href="${abbrevsUrl}">Ingredients</a></li>
 						      	</ul>
 						      </li>
 						      
-						      <li><a href="${recipesUrl}">Recipes</a></li>
 						    </ul>
 						  </div>
 						</div>

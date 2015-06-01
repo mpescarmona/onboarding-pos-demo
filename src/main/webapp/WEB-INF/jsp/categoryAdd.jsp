@@ -4,8 +4,8 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<c:url var="saveUrl" value="/ui/category/add" />
-<c:url var="listUrl" value="/ui/categories" />
+<c:url var="saveUrl" value="/ui/category-ui/add" />
+<c:url var="listUrl" value="/ui/category-ui" />
 <%@ include file="_commonLinks.jsp" %>
 
 <html>
@@ -18,8 +18,8 @@
 			<form:form class="well form-search" modelAttribute="categoryAttribute" method="POST" action="${saveUrl}">
 				<table>
 					<tr>
-						<td><form:label path="category">Category Name:</form:label></td>
-						<td><form:input class="input-medium" path="category"/></td>
+						<td><form:label path="categoryName">Category Name:</form:label></td>
+						<td><form:input class="input-medium" path="categoryName"/></td>
 					</tr>
 				</table>
 				<a href="${listUrl}" class="btn">Close</a>

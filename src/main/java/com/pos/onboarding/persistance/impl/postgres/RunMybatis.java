@@ -32,7 +32,7 @@ public class RunMybatis {
 	  category = categoryDAO.getCategoryById(1l);
 	  log.trace("id: {}, Name: {}", category.getId(), category.getCategoryName());
 	  //delete
-	  categoryDAO.removeCategory(category);
+	  categoryDAO.removeCategory(1l);
 	  log.trace("---Data deleted---");
 
 	  

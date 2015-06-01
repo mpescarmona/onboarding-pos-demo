@@ -98,30 +98,30 @@ public class CSVCategoryManager implements CategoryManager {
 	}
 
 	@Override
-	public boolean removeCategory(Category category) {
-		log.trace("Enter method removeCategory. Method params: {}", category);
+	public boolean removeCategory(Long categoryId) {
+		log.trace("Enter method removeCategory. Method params: {}", categoryId);
 
 		boolean result = false;
 		if (categories.isEmpty()) {
 			readCategoriesFromCsvFile();
 		}
-		Category existingCategory = getCategoryById(category.getId());
+		Category existingCategory = getCategoryById(categoryId);
 		if (existingCategory == null) {
 			log.error(
 					"The provided category does not exists. Method prams: {}. Result: {}",
-					category, result);
+					categoryId, result);
 		} else {
 			categories.remove(existingCategory);
 			writeCategoriesToCsvFile();
 			result = true;
 			log.debug(
 					"The provided category was successfully removed. Method prams: {}. Result: {}",
-					category, result);
+					categoryId, result);
 		}
 
 		log.trace(
 				"Return method removeCategory. Method params: {}. Result: {}",
-				category, result);
+				categoryId, result);
 		return result;
 	}
 

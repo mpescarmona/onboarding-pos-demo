@@ -4,10 +4,10 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<c:url var="mainUrl" value="/ui/categories" />
-<c:url var="jqueryUrl" value="/js/jquery-1.10.2.min.js" />
-<c:url var="bootstrapCssUrl" value="/bootstrap/css/bootstrap.css" />
-<c:url var="bootstrapJsUrl" value="/bootstrap/js/bootstrap.js" />
+<c:url var="mainUrl" value="/ui/category-ui" />
+<c:url var="jqueryUrl" value="/js/jquery-1.11.3.min.js" />
+<c:url var="bootstrapCssUrl" value="/bootstrap-3.3.4/css/bootstrap.css" />
+<c:url var="bootstrapJsUrl" value="/bootstrap-3.3.4/js/bootstrap.js" />
 
 <html>
 	<head>

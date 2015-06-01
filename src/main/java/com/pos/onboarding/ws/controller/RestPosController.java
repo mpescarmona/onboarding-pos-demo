@@ -106,15 +106,16 @@ public class RestPosController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/xml, application/json")
-	public @ResponseBody boolean deleteCategory(@RequestBody Category category) {
+	@ResponseBody
+	public boolean deleteCategory(@PathVariable("id") Long id) {
 		log.debug("Provider has received request to delete category with id: "
-				+ category.getId());
+				+ id);
 
 		// Call service here
-		boolean result = categoryManager.removeCategory(category);
+		boolean result = categoryManager.removeCategory(id);
 
 		log.debug(
-				"Return of request to delete category by Id. Method params: {}. Result: {}", category, result);
+				"Return of request to delete category by Id. Method params: {}. Result: {}", id, result);
 		
 		return result;
 	}

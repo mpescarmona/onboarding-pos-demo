@@ -92,10 +92,7 @@ public class ArticleDAOTest {
 			articleManager.removeArticle(article);
 		}
 		
-		Category testCategory = new Category();
-		testCategory.setId(CATEGORY_ID);
-		testCategory.setCategoryName(CATEGORY_NAME);
-		categoryManager.removeCategory(testCategory);
+		categoryManager.removeCategory(CATEGORY_ID);
 	}
 	
 	@Test

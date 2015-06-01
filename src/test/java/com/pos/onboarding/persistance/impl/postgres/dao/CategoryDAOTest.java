@@ -31,7 +31,7 @@ public class CategoryDAOTest {
 	public void init() {
 		List<Category> categories = categoryManager.getAllCategories();
 		for (Category category : categories) {
-			categoryManager.removeCategory(category);
+			categoryManager.removeCategory(category.getId());
 		}
 
 		Category category1 = new Category();
@@ -101,7 +101,7 @@ public class CategoryDAOTest {
 				.getCategoryById(ARTICLE_ID_3);
 		assertNotNull(retrievedCategory);
 
-		assertTrue(categoryManager.removeCategory(retrievedCategory));
+		assertTrue(categoryManager.removeCategory(retrievedCategory.getId()));
 
 		Category removedCategory = categoryManager
 				.getCategoryById(ARTICLE_ID_3);

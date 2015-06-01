@@ -25,7 +25,10 @@ public class CategoryDAO implements CategoryManager{
 		
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
-		
+		Long nextId = mapper.selectNextId();
+		if (category.getId() == null) {
+			category.setId(nextId);
+		}
 		Category result = mapper.selectCategory(category.getId());
 		if (result != null) {
 			log.error("The provided category already exists");
@@ -69,11 +72,11 @@ public class CategoryDAO implements CategoryManager{
 	}
 
 	@Override
-	public boolean removeCategory(Category category) {
-		log.trace("Enter method removeCategory. Method params: {}", category);
+	public boolean removeCategory(Long categoryId) {
+		log.trace("Enter method removeCategory. Method params: {}", categoryId);
 		boolean result = false;
 		
-		Long categoryId = category.getId();
+//		Long categoryId = category.getId();
 		
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
@@ -82,20 +85,20 @@ public class CategoryDAO implements CategoryManager{
 		if (existingCategory == null) {
 			log.error(
 					"The provided category does not exists. Method prams: {}. Result: {}",
-					category, result);
+					categoryId, result);
 		} else {
 			mapper.deleteCategory(categoryId);
 			result = true;
 			log.debug(
 					"The provided category was successfully removed. Method prams: {}. Result: {}",
-					category, result);
+					categoryId, result);
 		}
 		session.commit();
 		session.close();
 
 		log.trace(
 				"Return method removeCategory. Method params: {}. Result: {}",
-				category, result);
+				categoryId, result);
 		return result;
 	}
 

@@ -30,7 +30,7 @@ import com.pos.onboarding.util.CustomJsonParser;
  * Handles and retrieves recipe data
  */
 @Controller
-@RequestMapping("/ui")
+@RequestMapping("/category-ui")
 public class UiPosController {
 	
 	@Value("${webservice.url}")
@@ -102,7 +102,7 @@ public class UiPosController {
 	 * 
 	 * @return the name of the JSP page
 	 */
-    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String getCategoryList(@RequestParam(value="page", required=false, defaultValue="0") Integer page, 
    					              @RequestParam(value="size", required=false, defaultValue=PAGE_SIZE) Integer size, 
 						          @RequestParam(value="filter", required=false, defaultValue="") String filter, 
@@ -137,7 +137,7 @@ public class UiPosController {
      * 
      * @return the name of the JSP page
      */
-    @RequestMapping(value = "/category/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add", method = RequestMethod.GET)
     public String getAddCategory(Model model) {
     	log.debug("Received request to show add page");
     
@@ -153,7 +153,7 @@ public class UiPosController {
      * 
      * @return  the name of the JSP page
      */
-    @RequestMapping(value = "/category/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     public String addCategory(@ModelAttribute("categoryAttribute") Category category) {
 		log.debug("Received request to add new category");
 		
@@ -178,7 +178,7 @@ public class UiPosController {
      * 
      * @return  the name of the JSP page
      */
-    @RequestMapping(value = "/category/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public String deleteCategory(@RequestParam(value="id", required=true) Integer id, Model model) {
 		log.debug("Received request to delete existing category");
 		
@@ -199,7 +199,7 @@ public class UiPosController {
      * 
      * @return the name of the JSP page
      */
-    @RequestMapping(value = "/category/edit", method = RequestMethod.GET)
+    @RequestMapping(value = "/edit", method = RequestMethod.GET)
     public String getEditCategory(@RequestParam(value="id", required=true) Integer id, Model model) {
     	log.debug("Received request to show edit page");
     
@@ -216,7 +216,7 @@ public class UiPosController {
      * 
      * @return  the name of the JSP page
      */
-    @RequestMapping(value = "/category/edit", method = RequestMethod.POST)
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public String saveEditCategory(@ModelAttribute("categoryAttribute") Category category, 
     										   @RequestParam(value="id", required=true) Long id, 
     												Model model) {
