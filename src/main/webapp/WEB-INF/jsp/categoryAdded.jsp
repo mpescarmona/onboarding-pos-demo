@@ -19,7 +19,7 @@
 		<div class="container">
 			<h1>Category</h1>
 			<p>You have added a new category at <%= new java.util.Date() %></p>
-			<p>Return to <a href="${mainUrl}">Main List</a></p>
+			<a class="btn btn-primary" href="${mainUrl}" role="button">Return to Main List</a>
 		</div>
 	
 		<script src="${jqueryUrl}"></script>

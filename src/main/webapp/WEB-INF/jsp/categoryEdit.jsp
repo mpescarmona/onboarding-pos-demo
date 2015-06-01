@@ -27,7 +27,7 @@
 						<td><form:input class="input-medium" path="categoryName" /></td>
 					</tr>
 				</table>
-				<a href="${listUrl}" class="btn">Close</a>
+				<a class="btn btn-default" href="${listUrl}" role="button">Close</a>
 				<input class="btn btn-primary" type="submit" value="Save" />
 			</form:form>
 		</div>

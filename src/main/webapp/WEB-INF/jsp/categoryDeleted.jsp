@@ -19,7 +19,7 @@
 			<h1>Category</h1>
 			<p>You have deleted a category with id ${id} at <%= new java.util.Date() %></p>
 			<c:url var="mainUrl" value="/ui/category-ui" />
-			<p>Return to <a href="${mainUrl}">Main List</a></p>
+			<a class="btn btn-primary" href="${mainUrl}" role="button">Return to Main List</a>
 		</div>
 	
 		<script src="${jqueryUrl}"></script>

@@ -16,10 +16,10 @@
 			<h3>${pageTitle}</h3>
 			<!-- <table style="border: 1px solid; width: 500px; text-align:center"> -->
 <!-- 			<table class="table table-striped table-bordered"> -->
-			<table class="table table-striped table-bordered table-condensed">
+			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead style="background:#EBECE4">
 					<tr>
-						<th colspan="3"><a href="${addUrl}" class="btn" >New</a></th>
+						<th colspan="3"><a class="btn btn-primary" href="${addUrl}" role="button">New</a></th>
 					</tr>
 					<tr>
 						<th>Id</th>
@@ -35,20 +35,20 @@
 						<td><c:out value="${category.id}" /></td>
 						<td><c:out value="${category.categoryName}" /></td>
 						<td>
-							<a href="${editUrl}" class="btn" >Edit</a>
-							<a href="${deleteUrl}" class="btn" >Delete</a>
+							<a class="btn btn-info" href="${editUrl}" role="button">Edit</a>
+							<a class="btn btn-danger" href="${deleteUrl}" role="button">Delete</a>
 						</td>
 					</tr>
 				</c:forEach>
 				</tbody>
 			</table>
-			<div class="pagination">
-				<ul>
+			<nav>
+				<ul class="pager">
 				<c:forEach items="${links}" var="link">
-					<li><a href="${baseUrl}${link.link}">${link.text}</a>
+					<li><a class="btn btn-default" href="${baseUrl}${link.link}">${link.text}</a>
 				</c:forEach>
 				</ul>
-			</div>
+			</nav>
 		</div>
 		<c:if test="${empty categories}">
 			There are currently no categories in the list. <a href="${addUrl}">Add</a> a category.
