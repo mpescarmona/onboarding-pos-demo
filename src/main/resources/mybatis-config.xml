@@ -17,5 +17,6 @@
   <mappers>
     <mapper class="com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper" />
     <mapper class="com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper" />
+    <mapper class="com.pos.onboarding.persistance.impl.postgres.mapper.CustomerMapper" />
   </mappers>
 </configuration>

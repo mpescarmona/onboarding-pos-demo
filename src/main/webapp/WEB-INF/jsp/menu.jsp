@@ -1,13 +1,7 @@
 			<div class="container">
-				<c:url var="recipesUrl" value="/ui/recipes" />
+				<c:url var="billsUrl" value="#" />
 				<c:url var="categoriesUrl" value="/ui/category-ui" />
-				<c:url var="measuresUrl" value="/ui/measures" />
-				<c:url var="toolsUrl" value="/ui/tools" />
-				<c:url var="occasionsUrl" value="/ui/occasions" />
-				<c:url var="originsUrl" value="/ui/origins" />
-				<c:url var="seasonsUrl" value="/ui/seasons" />
-				<c:url var="usersUrl" value="/ui/users" />
-				<c:url var="abbrevsUrl" value="/ui/abbrevs" />
+				<c:url var="customersUrl" value="/ui/customer-ui" />
 				<div class="row">
 					<div class="span12">
 						<h1>Pos Demo</h1>
@@ -20,9 +14,11 @@
 						      	</a>
 						      	<ul class="dropdown-menu">
 									<li><a href="${categoriesUrl}">Categories</a></li>
+									<li><a href="${customersUrl}">Customers</a></li>
 						      	</ul>
 						      </li>
 						      
+						      <li><a href="${billsUrl}">Bills</a></li>
 						    </ul>
 						  </div>
 						</div>
