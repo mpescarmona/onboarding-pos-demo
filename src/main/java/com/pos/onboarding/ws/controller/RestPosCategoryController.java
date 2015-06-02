@@ -28,10 +28,10 @@ import com.pos.onboarding.ws.exception.ResourceNotFoundException;
  */
 @Controller
 @RequestMapping("/category")
-public class RestPosController {
+public class RestPosCategoryController {
 
 	protected static final Logger log = LogManager
-			.getLogger(RestPosController.class);
+			.getLogger(RestPosCategoryController.class);
 
 	@Resource(name = "categoryServicePostgres")
 	private CategoryManager categoryManager;

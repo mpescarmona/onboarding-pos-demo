@@ -31,7 +31,7 @@ import com.pos.onboarding.util.CustomJsonParser;
  */
 @Controller
 @RequestMapping("/category-ui")
-public class UiPosController {
+public class UiPosCategoryController {
 	
 	@Value("${webservice.url}")
 	private String BASE_URL;
@@ -45,7 +45,7 @@ public class UiPosController {
 	RestTemplate restTemplate = new RestTemplate();
 	
 	protected static final Logger log = LogManager
-			.getLogger(UiPosController.class);
+			.getLogger(UiPosCategoryController.class);
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
