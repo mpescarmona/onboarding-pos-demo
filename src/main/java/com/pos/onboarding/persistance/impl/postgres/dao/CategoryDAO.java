@@ -26,6 +26,7 @@ public class CategoryDAO implements CategoryManager{
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
 		Long nextId = mapper.selectNextId();
+		nextId = nextId != null ? nextId : 1l;
 		if (category.getId() == null) {
 			category.setId(nextId);
 		}

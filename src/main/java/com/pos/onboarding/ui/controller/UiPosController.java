@@ -168,7 +168,7 @@ public class UiPosController {
     	
     	restTemplate.postForLocation(BASE_URL + "/ws/category", entity);
     	
-		return "categoryAdded";
+		return "redirect:/ui/category-ui";
 	}
     
     
@@ -190,7 +190,7 @@ public class UiPosController {
     	log.debug("Calling WS");
 		restTemplate.exchange(BASE_URL + "/ws/category/" + id.toString(), HttpMethod.DELETE, entity, null);
     	
-		return "categoryDeleted";
+		return "redirect:/ui/category-ui";
 	}
 
     
@@ -235,9 +235,6 @@ public class UiPosController {
 		
     	restTemplate.put(BASE_URL + "/ws/category/" + id.toString(), entity);
     	
-    	model.addAttribute("categoryAttribute", category);
-		model.addAttribute("id", id);
-		
-		return "categoryEdited";
+		return "redirect:/ui/category-ui";
 	}
 }
