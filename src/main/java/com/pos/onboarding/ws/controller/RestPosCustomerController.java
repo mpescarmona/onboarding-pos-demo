@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,7 +78,7 @@ public class RestPosCustomerController {
 	@RequestMapping(value = "", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
-	public Customer addCustomer(@RequestBody Customer customer) {
+	public Customer addCustomer(@Valid @RequestBody Customer customer) {
 		log.debug("Provider has received request to add new customer");
 
 		// Call service to here
@@ -91,7 +92,7 @@ public class RestPosCustomerController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT, headers = "Accept=application/xml, application/json")
 	public @ResponseBody boolean updateCustomer(@PathVariable("id") Long id,
-			@RequestBody Customer customer) {
+			@Valid @RequestBody Customer customer) {
 		log.debug("Provider has received request to edit customer with id: "
 				+ id);
 

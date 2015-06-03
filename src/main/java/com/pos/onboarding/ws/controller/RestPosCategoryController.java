@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -77,7 +78,7 @@ public class RestPosCategoryController {
 	@RequestMapping(value = "", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
-	public Category addCategory(@RequestBody Category category) {
+	public Category addCategory(@Valid @RequestBody Category category) {
 		log.debug("Provider has received request to add new category");
 
 		// Call service to here
@@ -98,6 +99,9 @@ public class RestPosCategoryController {
 		// Call service here
 		category.setId(id);
 		boolean result = categoryManager.updateCategory(category);
+		if (!result) {
+			
+		}
 
 		log.debug(
 				"Return of request to edit category by Id. Method params: {}. Result: {}", id, result);

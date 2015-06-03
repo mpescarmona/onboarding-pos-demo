@@ -4,6 +4,8 @@ import java.beans.PropertyEditorSupport;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -154,7 +157,7 @@ public class UiPosCustomerController {
      * @return  the name of the JSP page
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCustomer(@ModelAttribute("customerAttribute") Customer customer) {
+    public String addCustomer(@Valid @ModelAttribute("customerAttribute") Customer customer, BindingResult result) {
 		log.debug("Received request to add new customer");
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -168,7 +171,13 @@ public class UiPosCustomerController {
     	
     	restTemplate.postForLocation(BASE_URL + "/ws/customer", entity);
     	
-		return "redirect:/ui/customer-ui";
+    	String resultString = "redirect:/ui/customer-ui";
+    	
+    	if (result.hasErrors()) {
+    		resultString = "customerAdd";
+    	}
+    	
+		return resultString;
 	}
     
     
@@ -217,7 +226,7 @@ public class UiPosCustomerController {
      * @return  the name of the JSP page
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveEditCustomer(@ModelAttribute("customerAttribute") Customer customer, 
+    public String saveEditCustomer(@Valid @ModelAttribute("customerAttribute") Customer customer, BindingResult result, 
     										   @RequestParam(value="id", required=true) Long id, 
     												Model model) {
     	log.debug("Received request to update customer");
@@ -235,6 +244,11 @@ public class UiPosCustomerController {
 		
     	restTemplate.put(BASE_URL + "/ws/customer/" + id.toString(), entity);
     	
-		return "redirect:/ui/customer-ui";
+    	String resultString = "redirect:/ui/customer-ui";
+    	
+    	if (result.hasErrors()) {
+    		resultString = "customerEdit";
+    	}
+		return resultString;
 	}
 }

@@ -1,6 +1,7 @@
 package com.pos.onboarding.beans;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * This class is used to hold the customer data.-
@@ -10,9 +11,13 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Customer {
 	private Long id;
+	@NotBlank(message = "First Name is mandatory")
 	private String firstName;
+	@NotBlank(message = "Last Name is mandatory")
 	private String lastName;
+	@NotBlank(message = "Phone Number is mandatory")
 	private String phoneNumber;
+	@NotBlank(message = "Email is mandatory")
 	private String email;
 
 	public Long getId() {

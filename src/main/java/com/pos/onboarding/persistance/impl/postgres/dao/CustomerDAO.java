@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bl.CustomerBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CustomerManager;
 import com.pos.onboarding.persistance.impl.postgres.mapper.CustomerMapper;
@@ -34,7 +35,10 @@ public class CustomerDAO implements CustomerManager{
 		if (result != null) {
 			log.error("The provided customer already exists");
 		} else {
-			mapper.insertCustomer(customer);
+			CustomerBl customerBl = new CustomerBl();
+			if (customerBl.validateCustomer(customer)) {
+				mapper.insertCustomer(customer);
+			}
 		}
 		
 		Customer newCustomer = mapper.selectCustomer(customer.getId());
@@ -50,21 +54,24 @@ public class CustomerDAO implements CustomerManager{
 		log.trace("Enter method updateCustomer. Method params: {}", customer);
 		boolean result = false;
 		
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		CustomerMapper mapper = session.getMapper(CustomerMapper.class);
-		
-		Customer existingCustomer = mapper.selectCustomer(customer.getId());
-		if (existingCustomer == null) {
-			log.debug("The provided customer does not exists. Adding to the database.");
-			mapper.insertCustomer(customer);
-		} else {
-			log.debug("The provided customer exists. Updating the changes to the database.");
-			mapper.updateCustomer(customer);
-			result = true;
-		}
-		
-		session.commit();
-		session.close();
+		CustomerBl customerBl = new CustomerBl();
+//		if (customerBl.validateCustomer(customer)) {
+			SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+			CustomerMapper mapper = session.getMapper(CustomerMapper.class);
+			
+			Customer existingCustomer = mapper.selectCustomer(customer.getId());
+			if (existingCustomer == null) {
+				log.debug("The provided customer does not exists. Adding to the database.");
+				mapper.insertCustomer(customer);
+			} else {
+				log.debug("The provided customer exists. Updating the changes to the database.");
+				mapper.updateCustomer(customer);
+				result = true;
+			}
+			
+			session.commit();
+			session.close();
+//		}
 		
 		log.trace(
 				"Return method updateCustomer. Method params: {}. Result: {}",
@@ -76,8 +83,6 @@ public class CustomerDAO implements CustomerManager{
 	public boolean removeCustomer(Long customerId) {
 		log.trace("Enter method removeCustomer. Method params: {}", customerId);
 		boolean result = false;
-		
-//		Long customerId = customer.getId();
 		
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CustomerMapper mapper = session.getMapper(CustomerMapper.class);

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bl.CategoryBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CategoryManager;
 import com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper;
@@ -34,7 +35,10 @@ public class CategoryDAO implements CategoryManager{
 		if (result != null) {
 			log.error("The provided category already exists");
 		} else {
-			mapper.insertCategory(category);
+			CategoryBl categoryBl = new CategoryBl();
+			if (categoryBl.validateCategory(category)) {
+				mapper.insertCategory(category);
+			}
 		}
 		
 		Category newCategory = mapper.selectCategory(category.getId());
@@ -50,21 +54,26 @@ public class CategoryDAO implements CategoryManager{
 		log.trace("Enter method updateCategory. Method params: {}", category);
 		boolean result = false;
 		
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
-		
-		Category existingCategory = mapper.selectCategory(category.getId());
-		if (existingCategory == null) {
-			log.debug("The provided category does not exists. Adding to the database.");
-			mapper.insertCategory(category);
+		CategoryBl categoryBl = new CategoryBl();
+		if (categoryBl.validateCategory(category)) {
+			SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+			CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+			
+			Category existingCategory = mapper.selectCategory(category.getId());
+			if (existingCategory == null) {
+				log.debug("The provided category does not exists. Adding to the database.");
+				mapper.insertCategory(category);
+			} else {
+				log.debug("The provided category exists. Updating the changes to the database.");
+				mapper.updateCategory(category);
+				result = true;
+			}
+			
+			session.commit();
+			session.close();
 		} else {
-			log.debug("The provided category exists. Updating the changes to the database.");
-			mapper.updateCategory(category);
-			result = true;
+			log.error("The provided category is invalid. Please verify and try again later");
 		}
-		
-		session.commit();
-		session.close();
 		
 		log.trace(
 				"Return method updateCategory. Method params: {}. Result: {}",
@@ -76,8 +85,6 @@ public class CategoryDAO implements CategoryManager{
 	public boolean removeCategory(Long categoryId) {
 		log.trace("Enter method removeCategory. Method params: {}", categoryId);
 		boolean result = false;
-		
-//		Long categoryId = category.getId();
 		
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CategoryMapper mapper = session.getMapper(CategoryMapper.class);

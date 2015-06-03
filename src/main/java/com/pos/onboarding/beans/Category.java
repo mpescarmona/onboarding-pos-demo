@@ -1,6 +1,7 @@
 package com.pos.onboarding.beans;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * This class is used to hold the categories of articles.-
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Category {
 	private Long id;
+	@NotBlank(message="Category Name is mandatory")
 	private String categoryName;
 
 	public Long getId() {

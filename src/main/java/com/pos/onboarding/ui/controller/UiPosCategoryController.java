@@ -4,6 +4,8 @@ import java.beans.PropertyEditorSupport;
 import java.util.Collection;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -154,7 +157,7 @@ public class UiPosCategoryController {
      * @return  the name of the JSP page
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addCategory(@ModelAttribute("categoryAttribute") Category category) {
+    public String addCategory(@Valid @ModelAttribute("categoryAttribute") Category category, BindingResult result) {
 		log.debug("Received request to add new category");
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -168,7 +171,13 @@ public class UiPosCategoryController {
     	
     	restTemplate.postForLocation(BASE_URL + "/ws/category", entity);
     	
-		return "redirect:/ui/category-ui";
+    	String resultString = "redirect:/ui/category-ui";
+    	
+    	if (result.hasErrors()) {
+    		resultString = "categoryAdd";
+    	}
+    	
+		return resultString;
 	}
     
     
@@ -217,7 +226,7 @@ public class UiPosCategoryController {
      * @return  the name of the JSP page
      */
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
-    public String saveEditCategory(@ModelAttribute("categoryAttribute") Category category, 
+    public String saveEditCategory(@Valid @ModelAttribute("categoryAttribute") Category category, BindingResult result, 
     										   @RequestParam(value="id", required=true) Long id, 
     												Model model) {
     	log.debug("Received request to update category");
@@ -235,6 +244,12 @@ public class UiPosCategoryController {
 		
     	restTemplate.put(BASE_URL + "/ws/category/" + id.toString(), entity);
     	
-		return "redirect:/ui/category-ui";
+    	String resultString = "redirect:/ui/category-ui";
+    	
+    	if (result.hasErrors()) {
+    		resultString = "categoryEdit";
+    	}
+    	
+		return resultString;
 	}
 }

@@ -20,18 +20,22 @@
 					<tr>
 						<td><form:label path="firstName">First Name:</form:label></td>
 						<td><form:input class="input-medium" path="firstName"/></td>
+						<td><form:errors class="input-medium has-error" path="firstName"/></td>
 					</tr>
 					<tr>
 						<td><form:label path="lastName">Last Name:</form:label></td>
 						<td><form:input class="input-medium" path="lastName"/></td>
+						<td><form:errors class="input-medium has-error" path="lastName"/></td>
 					</tr>
 					<tr>
 						<td><form:label path="phoneNumber">Phone Number:</form:label></td>
 						<td><form:input class="input-medium" path="phoneNumber"/></td>
+						<td><form:errors class="input-medium has-error" path="phoneNumber"/></td>
 					</tr>
 					<tr>
 						<td><form:label path="email">Email:</form:label></td>
 						<td><form:input class="input-medium" path="email"/></td>
+						<td><form:errors class="input-medium has-error" path="email"/></td>
 					</tr>
 				</table>
 				<a class="btn btn-default" href="${listUrl}" role="button">Close</a>

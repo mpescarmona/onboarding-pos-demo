@@ -25,6 +25,7 @@
 					<tr>
 						<td><form:label path="categoryName">Category Name:</form:label></td>
 						<td><form:input class="input-medium" path="categoryName" /></td>
+						<td><form:errors class="input-medium has-error" path="categoryName"/></td>
 					</tr>
 				</table>
 				<a class="btn btn-default" href="${listUrl}" role="button">Close</a>
