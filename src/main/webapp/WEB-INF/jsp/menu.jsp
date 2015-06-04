@@ -18,7 +18,7 @@
 						      	</ul>
 						      </li>
 						      
-						      <li><a href="${billsUrl}">Bills</a></li>
+<%-- 						      <li><a href="${billsUrl}">Bills</a></li> --%>
 						    </ul>
 						  </div>
 						</div>
