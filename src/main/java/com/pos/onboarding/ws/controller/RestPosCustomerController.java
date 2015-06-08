@@ -49,7 +49,7 @@ public class RestPosCustomerController {
 
 		// Call service here
 		List<Customer> result = new ArrayList<Customer>();
-		result = customerManager.getAllCategories();
+		result = customerManager.getAllCategories(pageNumber, pageSize);
 
 		log.debug(
 				"Return of request to get all customers. Method params: {}. Result: {}", result);
@@ -117,6 +117,20 @@ public class RestPosCustomerController {
 
 		log.debug(
 				"Return of request to delete customer by Id. Method params: {}. Result: {}", id, result);
+		
+		return result;
+	}
+
+	@RequestMapping(value = "/count", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@ResponseBody
+	public Long getCount() {
+		log.debug("Provider has received request to get customer count");
+
+		// Call service here
+		Long result = customerManager.getCount();
+
+		log.debug(
+				"Return of request to get customer count. Result: {}", result);
 		
 		return result;
 	}

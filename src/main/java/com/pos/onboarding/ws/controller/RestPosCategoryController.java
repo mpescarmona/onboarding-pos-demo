@@ -49,7 +49,7 @@ public class RestPosCategoryController {
 
 		// Call service here
 		List<Category> result = new ArrayList<Category>();
-		result = categoryManager.getAllCategories();
+		result = categoryManager.getAllCategories(pageNumber, pageSize);
 
 		log.debug(
 				"Return of request to get all categories. Method params: {}. Result: {}", result);
@@ -120,6 +120,20 @@ public class RestPosCategoryController {
 
 		log.debug(
 				"Return of request to delete category by Id. Method params: {}. Result: {}", id, result);
+		
+		return result;
+	}
+
+	@RequestMapping(value = "/count", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
+	@ResponseBody
+	public Long getCount() {
+		log.debug("Provider has received request to get category count");
+
+		// Call service here
+		Long result = categoryManager.getCount();
+
+		log.debug(
+				"Return of request to get category count. Result: {}", result);
 		
 		return result;
 	}

@@ -87,7 +87,7 @@ public class ArticleDAOTest {
 
 	@After
 	public void tearDown() {
-		List<Article> articles = articleManager.getAllArticles();
+		List<Article> articles = articleManager.getAllArticles(1, 100);
 		for (Article article : articles) {
 			articleManager.removeArticle(article);
 		}

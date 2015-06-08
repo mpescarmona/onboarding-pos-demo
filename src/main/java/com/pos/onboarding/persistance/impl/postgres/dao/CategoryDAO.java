@@ -3,6 +3,7 @@ package com.pos.onboarding.persistance.impl.postgres.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ import com.pos.onboarding.beans.Category;
 import com.pos.onboarding.bl.CategoryBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper;
 import com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper;
 
 @Service("categoryServicePostgres")
@@ -127,16 +129,36 @@ public class CategoryDAO implements CategoryManager{
 	}
 
 	@Override
-	public List<Category> getAllCategories() {
+	public List<Category> getAllCategories(int pageNumber, int pageSize) {
 		log.trace("Enter method getAll.");
 
 		List<Category> result = new ArrayList<Category>();
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
-		result = mapper.selectAllCategories();
+
+		int offset = ((pageNumber - 1) * pageSize);
+		offset = offset < 0 ? 0 : offset;
+        RowBounds rowBounds = new RowBounds(offset, pageSize);
+
+		result = mapper.selectAllCategories(rowBounds);
 		session.close();
 
 		log.trace("Return method getAll. Result: {}", result);
+
+		return result;
+	}
+	
+	@Override
+	public Long getCount() {
+		log.trace("Enter method getCount.");
+		
+		Long result = 0l;
+		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+		CategoryMapper mapper = session.getMapper(CategoryMapper.class);
+		result = mapper.selectCount();
+		session.close();
+		
+		log.trace("Return method getCount. Result: {}", result);
 
 		return result;
 	}

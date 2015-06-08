@@ -42,13 +42,13 @@
 				</c:forEach>
 				</tbody>
 			</table>
-<!-- 			<nav> -->
-<!-- 				<ul class="pager"> -->
-<%-- 				<c:forEach items="${links}" var="link"> --%>
-<%-- 					<li><a class="btn btn-default" href="${baseUrl}${link.link}">${link.text}</a> --%>
-<%-- 				</c:forEach> --%>
-<!-- 				</ul> -->
-<!-- 			</nav> -->
+			<nav>
+				<ul class="pager">
+				<c:forEach items="${links}" var="link">
+					<li><a class="btn btn-default" href="${baseUrl}${link.link}">${link.text}</a>
+				</c:forEach>
+				</ul>
+			</nav>
 		</div>
 		<c:if test="${empty categories}">
 			There are currently no categories in the list. <a href="${addUrl}">Add</a> a category.

@@ -44,8 +44,15 @@ public interface ArticleManager {
 	/**
 	 * Retrieves all the Articles.
 	 * 
+	 * @param pageSize 
+	 * @param pageNumber 
+	 * @return the list of articles
+	 */
+	public List<Article> getAllArticles(int pageNumber, int pageSize);
+
+	/**
+	 * Retrieves the total number of articles 
 	 * @return
 	 */
-	List<Article> getAllArticles();
-
+	public Long getCount();
 }

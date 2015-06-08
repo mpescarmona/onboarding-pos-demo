@@ -106,7 +106,7 @@ public class UiPosCategoryController {
 	 * @return the name of the JSP page
 	 */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String getCategoryList(@RequestParam(value="page", required=false, defaultValue="0") Integer page, 
+    public String getCategoryList(@RequestParam(value="page", required=false, defaultValue="1") Integer page, 
    					              @RequestParam(value="size", required=false, defaultValue=PAGE_SIZE) Integer size, 
 						          @RequestParam(value="filter", required=false, defaultValue="") String filter, 
 						          @RequestParam(value="sort", required=false, defaultValue="") String sort, 
@@ -124,8 +124,7 @@ public class UiPosCategoryController {
 
     	model.addAttribute("categories", categories);
     	
-//    	Long count = restTemplate.getForObject(BASE_URL + "/ws/category/count", Long.class);
-    	Long count = (long) categories.size();
+    	Long count = restTemplate.getForObject(BASE_URL + "/ws/category/count", Long.class);
     	List<Link> links = LinksUtil.getPageLinks(page, size,  filter, sort, order, count);
     	
     	model.addAttribute("links", links);
@@ -251,5 +250,5 @@ public class UiPosCategoryController {
     	}
     	
 		return resultString;
-	}
+	}    
 }

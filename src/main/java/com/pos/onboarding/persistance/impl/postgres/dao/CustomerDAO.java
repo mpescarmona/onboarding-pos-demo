@@ -3,6 +3,7 @@ package com.pos.onboarding.persistance.impl.postgres.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,6 +14,7 @@ import com.pos.onboarding.beans.Customer;
 import com.pos.onboarding.bl.CustomerBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CustomerManager;
+import com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper;
 import com.pos.onboarding.persistance.impl.postgres.mapper.CustomerMapper;
 
 @Service("customerServicePostgres")
@@ -125,16 +127,36 @@ public class CustomerDAO implements CustomerManager{
 	}
 
 	@Override
-	public List<Customer> getAllCategories() {
+	public List<Customer> getAllCategories(int pageNumber, int pageSize) {
 		log.trace("Enter method getAll.");
 
 		List<Customer> result = new ArrayList<Customer>();
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		CustomerMapper mapper = session.getMapper(CustomerMapper.class);
-		result = mapper.selectAllCustomers();
+
+		int offset = ((pageNumber - 1) * pageSize);
+		offset = offset < 0 ? 0 : offset;
+        RowBounds rowBounds = new RowBounds(offset, pageSize);
+
+		result = mapper.selectAllCustomers(rowBounds);
 		session.close();
 
 		log.trace("Return method getAll. Result: {}", result);
+
+		return result;
+	}
+
+	@Override
+	public Long getCount() {
+		log.trace("Enter method getCount.");
+		
+		Long result = 0l;
+		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+		CustomerMapper mapper = session.getMapper(CustomerMapper.class);
+		result = mapper.selectCount();
+		session.close();
+		
+		log.trace("Return method getCount. Result: {}", result);
 
 		return result;
 	}

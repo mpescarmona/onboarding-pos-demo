@@ -3,6 +3,7 @@ package com.pos.onboarding.persistance.impl.postgres.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +22,11 @@ public class ArticleDAO implements ArticleManager{
 		
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		
+		Long nextId = mapper.selectNextId();
+		nextId = nextId != null ? nextId : 1l;
+		if (article.getId() == null) {
+			article.setId(nextId);
+		}
 		Article result = mapper.selectArticle(article.getId());
 		if (result != null) {
 			log.error("The provided article already exists");
@@ -112,16 +117,36 @@ public class ArticleDAO implements ArticleManager{
 	}
 
 	@Override
-	public List<Article> getAllArticles() {
+	public List<Article> getAllArticles(int pageNumber, int pageSize) {
 		log.trace("Enter method getAll.");
 
 		List<Article> result = new ArrayList<Article>();
 		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
 		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		result = mapper.selectAllArticles();
+
+		int offset = ((pageNumber - 1) * pageSize);
+		offset = offset < 0 ? 0 : offset;
+        RowBounds rowBounds = new RowBounds(offset, pageSize);
+
+		result = mapper.selectAllArticles(rowBounds);
 		session.close();
 
 		log.trace("Return method getAll. Result: {}", result);
+
+		return result;
+	}
+
+	@Override
+	public Long getCount() {
+		log.trace("Enter method getCount.");
+		
+		Long result = 0l;
+		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
+		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+		result = mapper.selectCount();
+		session.close();
+		
+		log.trace("Return method getCount. Result: {}", result);
 
 		return result;
 	}

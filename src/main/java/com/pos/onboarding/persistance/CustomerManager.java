@@ -42,10 +42,19 @@ public interface CustomerManager {
 	public boolean removeCustomer(Long customerId);
 
 	/**
-	 * Retrieves all the Categories.
+	 * Retrieves all the Customers.
+	 * 
+	 * @param pageSize
+	 * @param pageNumber
+	 * @return
+	 */
+	List<Customer> getAllCategories(int pageNumber, int pageSize);
+
+	/**
+	 * Retrieves the total number of customers
 	 * 
 	 * @return
 	 */
-	List<Customer> getAllCategories();
+	public Long getCount();
 
 }

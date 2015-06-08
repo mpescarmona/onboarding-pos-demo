@@ -28,7 +28,7 @@ public class CSVCategoryManagerTest {
 
 	@Before
 	public void init() {
-		List<Category> categories = categoryManager.getAllCategories();
+		List<Category> categories = categoryManager.getAllCategories(1, 100);
 		for (Category category : categories) {
 			categoryManager.removeCategory(category.getId());
 		}

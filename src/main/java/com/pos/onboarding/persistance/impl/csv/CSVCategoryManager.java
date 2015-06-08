@@ -126,7 +126,7 @@ public class CSVCategoryManager implements CategoryManager {
 	}
 
 	@Override
-	public List<Category> getAllCategories() {
+	public List<Category> getAllCategories(int pageNumber, int pageSize) {
 		log.trace("Enter method getAll.");
 
 		List<Category> result = new ArrayList<Category>();
@@ -226,6 +226,22 @@ public class CSVCategoryManager implements CategoryManager {
 				e.printStackTrace();
 			}
 		}
+	}
+
+	@Override
+	public Long getCount() {
+		log.trace("Enter method getCount.");
+
+		Long result = null;
+		if (categories.isEmpty()) {
+			readCategoriesFromCsvFile();
+		}
+		
+		result = (long) categories.size();
+
+		log.trace("Return method getCount. Result: {}", result);
+
+		return result;
 	}
 
 }

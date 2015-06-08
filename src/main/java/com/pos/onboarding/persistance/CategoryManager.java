@@ -44,8 +44,16 @@ public interface CategoryManager {
 	/**
 	 * Retrieves all the Categories.
 	 * 
+	 * @param pageSize
+	 * @param pageNumber
 	 * @return
 	 */
-	List<Category> getAllCategories();
+	List<Category> getAllCategories(int pageNumber, int pageSize);
 
+	/**
+	 * Retrieves the total number of categories
+	 * 
+	 * @return
+	 */
+	public Long getCount();
 }
