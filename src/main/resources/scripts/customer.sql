@@ -9,7 +9,7 @@ CREATE TABLE customer
   lastname character varying(80),
   phonenumber character varying(80),
   email character varying(80),
-  CONSTRAINT pk PRIMARY KEY (id)
+  CONSTRAINT pk_customer PRIMARY KEY (id)
 )
 WITH (
   OIDS=FALSE

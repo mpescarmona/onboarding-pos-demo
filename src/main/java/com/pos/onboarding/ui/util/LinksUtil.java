@@ -30,13 +30,15 @@ public class LinksUtil {
 		List<Link> links = new ArrayList<Link>();
 
 		if(count > size) {
+			int prevPage = page > 1 ? page - 1: 1;
 			int lastPage = Math.round(count/size + 1);
-			links.add(new Link("First", getPageParams(1, size, filter, sort, order)));
-			links.add(new Link("Prev", getPageParams((page > 1 ? page - 1: 1), size, filter, sort, order)));
-			links.add(new Link("Next", getPageParams(lastPage > (page + 1) ? lastPage: page + 1, size, filter, sort, order)));
-			links.add(new Link("Last", getPageParams(lastPage, size, filter, sort, order)));
+			int nextPage = page + 1 > lastPage ? lastPage : page + 1;
+			links.add(new Link("First", getPageParams(1, size, filter, sort, order), page.equals(1) ? "class=\"disabled\"" : ""));
+			links.add(new Link("Prev", getPageParams(prevPage, size, filter, sort, order), page.equals(1) ? "class=\"disabled\"" : ""));
+			links.add(new Link("Next", getPageParams(nextPage, size, filter, sort, order), nextPage == page ? "class=\"disabled\"" : ""));
+			links.add(new Link("Last", getPageParams(lastPage, size, filter, sort, order), lastPage == page ? "class=\"disabled\"" : ""));
 		} else {
-			links.add(new Link("Current", getPageParams(page, size, filter, sort, order)));
+			links.add(new Link("Current", getPageParams(page, size, filter, sort, order), "class=\"disabled\""));
 		}
 		
 		return links;

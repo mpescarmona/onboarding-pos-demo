@@ -8,11 +8,13 @@ public class Link implements Serializable {
 	
 	private String text;
 	private String link;
+	private String enabled;
 	
-	public Link(String text, String link) {
+	public Link(String text, String link, String string) {
 		super();
 		this.text = text;
 		this.link = link;
+		this.enabled = string;
 	}
 	
 	public String getText() {
@@ -28,8 +30,16 @@ public class Link implements Serializable {
 		this.link = link;
 	}
 	
+	public String getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(String enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public String toString() {
-		return "Link [text=" + text + ", link=" + link + "]";
+		return "Link [text=" + text + ", link=" + link + ", enabled=" + enabled + "]";
 	}
 }

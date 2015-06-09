@@ -45,7 +45,7 @@
 			<nav>
 				<ul class="pager">
 				<c:forEach items="${links}" var="link">
-					<li><a class="btn btn-default" href="${baseUrl}${link.link}">${link.text}</a>
+					<li ${link.enabled}><a class="btn btn-default" href="${baseUrl}${link.link}">${link.text}</a>
 				</c:forEach>
 				</ul>
 			</nav>
