@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.pos.onboarding.beans.Category;
 import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.ws.error.resource.ErrorResource;
 import com.pos.onboarding.ws.exception.ResourceNotFoundException;
 
 /**
@@ -49,10 +54,12 @@ public class RestPosCategoryController {
 
 		// Call service here
 		List<Category> result = new ArrayList<Category>();
+
 		result = categoryManager.getAllCategories(pageNumber, pageSize);
 
 		log.debug(
-				"Return of request to get all categories. Method params: {}. Result: {}", result);
+				"Return of request to get all categories. Method params: {}. Result: {}",
+				result);
 
 		return result;
 	}
@@ -70,23 +77,26 @@ public class RestPosCategoryController {
 		}
 
 		log.debug(
-				"Return of request to get category by Id. Method params: {}. Result: {}", id, category);
-		
+				"Return of request to get category by Id. Method params: {}. Result: {}",
+				id, category);
+
 		return category;
 	}
 
 	@RequestMapping(value = "", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
-	public Category addCategory(@Valid @RequestBody Category category) {
+	public Category addCategory(HttpServletResponse response,
+			@Valid @RequestBody Category category) {
 		log.debug("Provider has received request to add new category");
 
 		// Call service to here
-		Category newCategory = categoryManager.createCategory(category); 
+		Category newCategory = categoryManager.createCategory(category);
 
 		log.debug(
-				"Return of request to add new category. Method params: {}. Result: {}", category, newCategory);
-		
+				"Return of request to add new category. Method params: {}. Result: {}",
+				category, newCategory);
+
 		return newCategory;
 	}
 
@@ -100,27 +110,29 @@ public class RestPosCategoryController {
 		category.setId(id);
 		boolean result = categoryManager.updateCategory(category);
 		if (!result) {
-			
+
 		}
 
 		log.debug(
-				"Return of request to edit category by Id. Method params: {}. Result: {}", id, result);
-		
+				"Return of request to edit category by Id. Method params: {}. Result: {}",
+				id, result);
+
 		return result;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/xml, application/json")
 	@ResponseBody
-	public boolean deleteCategory(@PathVariable("id") Long id) {
+	public Boolean deleteCategory(@PathVariable("id") Long id) {
 		log.debug("Provider has received request to delete category with id: "
 				+ id);
 
 		// Call service here
-		boolean result = categoryManager.removeCategory(id);
+		Boolean result = categoryManager.removeCategory(id);
 
 		log.debug(
-				"Return of request to delete category by Id. Method params: {}. Result: {}", id, result);
-		
+				"Return of request to delete category by Id. Method params: {}. Result: {}",
+				id, result);
+
 		return result;
 	}
 
@@ -132,9 +144,18 @@ public class RestPosCategoryController {
 		// Call service here
 		Long result = categoryManager.getCount();
 
-		log.debug(
-				"Return of request to get category count. Result: {}", result);
-		
+		log.debug("Return of request to get category count. Result: {}", result);
+
 		return result;
 	}
+
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorResource> handleHibernateValidation(
+			MethodArgumentNotValidException e) {
+
+		RestExceptionHandler exceptionHandler = new RestExceptionHandler();
+
+		return exceptionHandler.handleHibernateValidation(e);
+	}
+
 }

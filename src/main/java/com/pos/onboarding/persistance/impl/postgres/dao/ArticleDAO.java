@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.pos.onboarding.beans.Article;
+import com.pos.onboarding.bl.ArticleBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.ArticleManager;
 import com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper;
@@ -16,29 +18,40 @@ import com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper;
 public class ArticleDAO implements ArticleManager{
 	private static final Logger log = LogManager.getLogger(ArticleDAO.class);
 	
+	private SqlSessionFactory sessionFactory = MyBatisUtil
+			.getSqlSessionFactory();
+
 	@Override
 	public Article createArticle(Article article) {
 		log.trace("Enter method createArticle. Method params: {}", article);
 		
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		Long nextId = mapper.selectNextId();
-		nextId = nextId != null ? nextId : 1l;
-		if (article.getId() == null) {
-			article.setId(nextId);
-		}
-		Article result = mapper.selectArticle(article.getId());
-		if (result != null) {
-			log.error("The provided article already exists");
-		} else {
-			mapper.insertArticle(article);
+		SqlSession session = sessionFactory.openSession();
+		Article newArticle;
+		try {
+			ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+			Long nextId = mapper.selectNextId();
+			nextId = nextId != null ? nextId : 1l;
+			if (article.getId() == null) {
+				article.setId(nextId);
+			}
+			Article result = mapper.selectArticle(article.getId());
+			if (result != null) {
+				log.error("The provided article already exists");
+			} else {
+				ArticleBl articleBl = new ArticleBl();
+				if (articleBl.validateArticle(article)) {
+					mapper.insertArticle(article);
+					session.commit();
+				}
+			}
+			
+			newArticle = mapper.selectArticle(article.getId());
+			session.commit();
+		} finally {
+			session.close();
+			log.trace("Return method createArticle. Method params: {}.", article);
 		}
 		
-		Article newArticle = mapper.selectArticle(article.getId());
-		session.commit();
-		session.close();
-
-		log.trace("Return method createArticle. Method params: {}.", article);
 		return newArticle;
 	}
 
@@ -47,25 +60,33 @@ public class ArticleDAO implements ArticleManager{
 		log.trace("Enter method updateArticle. Method params: {}", article);
 		boolean result = false;
 		
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		
-		Article existingArticle = mapper.selectArticle(article.getId());
-		if (existingArticle == null) {
-			log.debug("The provided article does not exists. Adding to the database.");
-			mapper.insertArticle(article);
+		ArticleBl articleBl = new ArticleBl();
+		if (articleBl.validateArticle(article)) {
+			SqlSession session = sessionFactory.openSession();
+			try {
+				ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+				
+				Article existingArticle = mapper.selectArticle(article.getId());
+				if (existingArticle == null) {
+					log.debug("The provided article does not exists. Adding to the database.");
+					mapper.insertArticle(article);
+				} else {
+					log.debug("The provided article exists. Updating the changes to the database.");
+					mapper.updateArticle(article);
+					result = true;
+				}
+				
+				session.commit();
+			} finally {
+				session.close();
+				log.trace(
+						"Return method updateArticle. Method params: {}. Result: {}",
+						article, result);
+			}
 		} else {
-			log.debug("The provided article exists. Updating the changes to the database.");
-			mapper.updateArticle(article);
-			result = true;
+			log.error("The provided article is invalid. Please verify and try again later");
 		}
 		
-		session.commit();
-		session.close();
-		
-		log.trace(
-				"Return method updateArticle. Method params: {}. Result: {}",
-				article, result);
 		return result;
 	}
 
@@ -76,27 +97,30 @@ public class ArticleDAO implements ArticleManager{
 		
 		Long articleId = article.getId();
 		
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		
-		Article existingArticle = mapper.selectArticle(articleId);
-		if (existingArticle == null) {
-			log.error(
-					"The provided article does not exists. Method prams: {}. Result: {}",
-					article, result);
-		} else {
-			mapper.deleteArticle(articleId);
-			result = true;
-			log.debug(
-					"The provided article was successfully removed. Method prams: {}. Result: {}",
+		SqlSession session = sessionFactory.openSession();
+		try {
+			ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+			
+			Article existingArticle = mapper.selectArticle(articleId);
+			if (existingArticle == null) {
+				log.error(
+						"The provided article does not exists. Method prams: {}. Result: {}",
+						article, result);
+			} else {
+				mapper.deleteArticle(articleId);
+				result = true;
+				log.debug(
+						"The provided article was successfully removed. Method prams: {}. Result: {}",
+						article, result);
+			}
+			session.commit();
+		} finally {
+			session.close();
+			log.trace(
+					"Return method removeArticle. Method params: {}. Result: {}",
 					article, result);
 		}
-		session.commit();
-		session.close();
-
-		log.trace(
-				"Return method removeArticle. Method params: {}. Result: {}",
-				article, result);
+		
 		return result;
 	}
 
@@ -104,14 +128,17 @@ public class ArticleDAO implements ArticleManager{
 	public Article getArticleById(Long articleId) {
 		log.trace("Enter method getArticleById. Method params: {}", articleId);
 
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		Article article = mapper.selectArticle(articleId);
-		session.close();
-		
-		log.trace(
-				"Return method getArticleById. Method params: {}. Result: {}",
-				articleId, article);
+		SqlSession session = sessionFactory.openSession();
+		Article article = null;
+		try {
+			ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+			article = mapper.selectArticle(articleId);
+		} finally {
+			session.close();
+			log.trace(
+					"Return method getArticleById. Method params: {}. Result: {}",
+					articleId, article);
+		}
 
 		return article;
 	}
@@ -121,17 +148,19 @@ public class ArticleDAO implements ArticleManager{
 		log.trace("Enter method getAll.");
 
 		List<Article> result = new ArrayList<Article>();
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+		SqlSession session = sessionFactory.openSession();
+		try {
+			ArticleMapper mapper = session.getMapper(ArticleMapper.class);
 
-		int offset = ((pageNumber - 1) * pageSize);
-		offset = offset < 0 ? 0 : offset;
-        RowBounds rowBounds = new RowBounds(offset, pageSize);
+			int offset = ((pageNumber - 1) * pageSize);
+			offset = offset < 0 ? 0 : offset;
+			RowBounds rowBounds = new RowBounds(offset, pageSize);
 
-		result = mapper.selectAllArticles(rowBounds);
-		session.close();
-
-		log.trace("Return method getAll. Result: {}", result);
+			result = mapper.selectAllArticles(rowBounds);
+		} finally {
+			session.close();
+			log.trace("Return method getAll. Result: {}", result);
+		}
 
 		return result;
 	}
@@ -141,12 +170,14 @@ public class ArticleDAO implements ArticleManager{
 		log.trace("Enter method getCount.");
 		
 		Long result = 0l;
-		SqlSession session = MyBatisUtil.getSqlSessionFactory().openSession();
-		ArticleMapper mapper = session.getMapper(ArticleMapper.class);
-		result = mapper.selectCount();
-		session.close();
-		
-		log.trace("Return method getCount. Result: {}", result);
+		SqlSession session = sessionFactory.openSession();
+		try {
+			ArticleMapper mapper = session.getMapper(ArticleMapper.class);
+			result = mapper.selectCount();
+		} finally {
+			session.close();
+			log.trace("Return method getCount. Result: {}", result);
+		}
 
 		return result;
 	}

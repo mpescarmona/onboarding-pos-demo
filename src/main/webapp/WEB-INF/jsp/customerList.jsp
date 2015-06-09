@@ -56,9 +56,6 @@
 				</ul>
 			</nav>
 		</div>
-		<c:if test="${empty customers}">
-			There are currently no customers in the list. <a href="${addUrl}">Add</a> a customer.
-		</c:if>
 	
 		<script src="${jqueryUrl}"></script>
 	    <script src="${bootstrapJsUrl}"></script>

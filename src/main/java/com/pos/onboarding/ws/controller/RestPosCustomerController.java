@@ -4,12 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.pos.onboarding.beans.Customer;
 import com.pos.onboarding.persistance.CustomerManager;
+import com.pos.onboarding.ws.error.resource.ErrorResource;
 import com.pos.onboarding.ws.exception.ResourceNotFoundException;
 
 /**
@@ -78,7 +83,7 @@ public class RestPosCustomerController {
 	@RequestMapping(value = "", method = RequestMethod.POST, headers = "Accept=application/xml, application/json")
 	@ResponseBody
 	@ResponseStatus(HttpStatus.CREATED)
-	public Customer addCustomer(@Valid @RequestBody Customer customer) {
+	public Customer addCustomer(HttpServletResponse response, @Valid @RequestBody Customer customer) {
 		log.debug("Provider has received request to add new customer");
 
 		// Call service to here
@@ -108,12 +113,12 @@ public class RestPosCustomerController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, headers = "Accept=application/xml, application/json")
 	@ResponseBody
-	public boolean deleteCustomer(@PathVariable("id") Long id) {
+	public Boolean deleteCustomer(@PathVariable("id") Long id) {
 		log.debug("Provider has received request to delete customer with id: "
 				+ id);
 
 		// Call service here
-		boolean result = customerManager.removeCustomer(id);
+		Boolean result = customerManager.removeCustomer(id);
 
 		log.debug(
 				"Return of request to delete customer by Id. Method params: {}. Result: {}", id, result);
@@ -133,5 +138,14 @@ public class RestPosCustomerController {
 				"Return of request to get customer count. Result: {}", result);
 		
 		return result;
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<ErrorResource> handleHibernateValidation(
+			MethodArgumentNotValidException e) {
+
+		RestExceptionHandler exceptionHandler = new RestExceptionHandler();
+
+		return exceptionHandler.handleHibernateValidation(e);
 	}
 }

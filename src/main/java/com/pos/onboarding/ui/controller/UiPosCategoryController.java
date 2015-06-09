@@ -196,7 +196,7 @@ public class UiPosCategoryController {
     	HttpEntity entity = new HttpEntity(headers);
 		
     	log.debug("Calling WS");
-		restTemplate.exchange(BASE_URL + "/ws/category/" + id.toString(), HttpMethod.DELETE, entity, null);
+		restTemplate.exchange(BASE_URL + "/ws/category/" + id.toString(), HttpMethod.DELETE, entity, Boolean.class);
     	
 		return "redirect:/ui/category-ui";
 	}

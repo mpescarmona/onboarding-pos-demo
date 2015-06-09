@@ -50,9 +50,6 @@
 				</ul>
 			</nav>
 		</div>
-		<c:if test="${empty categories}">
-			There are currently no categories in the list. <a href="${addUrl}">Add</a> a category.
-		</c:if>
 	
 		<script src="${jqueryUrl}"></script>
 	    <script src="${bootstrapJsUrl}"></script>

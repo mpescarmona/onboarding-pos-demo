@@ -196,7 +196,7 @@ public class UiPosCustomerController {
     	HttpEntity entity = new HttpEntity(headers);
 		
     	log.debug("Calling WS");
-		restTemplate.exchange(BASE_URL + "/ws/customer/" + id.toString(), HttpMethod.DELETE, entity, null);
+		restTemplate.exchange(BASE_URL + "/ws/customer/" + id.toString(), HttpMethod.DELETE, entity, Boolean.class);
     	
 		return "redirect:/ui/customer-ui";
 	}
