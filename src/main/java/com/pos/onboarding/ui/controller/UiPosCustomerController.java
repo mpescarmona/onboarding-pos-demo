@@ -159,22 +159,22 @@ public class UiPosCustomerController {
     public String addCustomer(@Valid @ModelAttribute("customerAttribute") Customer customer, BindingResult result) {
 		log.debug("Received request to add new customer");
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Accept", "application/json");
+		String resultString = "redirect:/ui/customer-ui";
 		
-		String customerString = "";
-		customerString = CustomJsonParser.ObjectToJsonString(customer);
-		HttpEntity<String> entity = new HttpEntity<String>(customerString, headers);
-    	log.debug("Calling WS with JSON [" + customerString + "] of Customer [" + customer.toString() + "]");
-    	
-    	restTemplate.postForLocation(BASE_URL + "/ws/customer", entity);
-    	
-    	String resultString = "redirect:/ui/customer-ui";
-    	
-    	if (result.hasErrors()) {
-    		resultString = "customerAdd";
-    	}
+		if (result.hasErrors()) {
+			resultString = "customerAdd";
+		} else {
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(MediaType.APPLICATION_JSON);
+			headers.set("Accept", "application/json");
+			
+			String customerString = "";
+			customerString = CustomJsonParser.ObjectToJsonString(customer);
+			HttpEntity<String> entity = new HttpEntity<String>(customerString, headers);
+			log.debug("Calling WS with JSON [" + customerString + "] of Customer [" + customer.toString() + "]");
+			
+			restTemplate.postForLocation(BASE_URL + "/ws/customer", entity);
+		}
     	
 		return resultString;
 	}
@@ -230,24 +230,25 @@ public class UiPosCustomerController {
     												Model model) {
     	log.debug("Received request to update customer");
     
-    	customer.setId(id);
-    	
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Accept", "application/json");
-
-		String customerString = "";
-		customerString = CustomJsonParser.ObjectToJsonString(customer);
-		HttpEntity<String> entity = new HttpEntity<String>(customerString, headers);
-    	log.debug("Calling WS with JSON [" + customerString + "] of Customer [" + customer.toString() + "]");
-		
-    	restTemplate.put(BASE_URL + "/ws/customer/" + id.toString(), entity);
-    	
     	String resultString = "redirect:/ui/customer-ui";
     	
     	if (result.hasErrors()) {
     		resultString = "customerEdit";
+    	} else {
+    		customer.setId(id);
+    		
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.APPLICATION_JSON);
+    		headers.set("Accept", "application/json");
+    		
+    		String customerString = "";
+    		customerString = CustomJsonParser.ObjectToJsonString(customer);
+    		HttpEntity<String> entity = new HttpEntity<String>(customerString, headers);
+    		log.debug("Calling WS with JSON [" + customerString + "] of Customer [" + customer.toString() + "]");
+    		
+    		restTemplate.put(BASE_URL + "/ws/customer/" + id.toString(), entity);
     	}
+    	
 		return resultString;
 	}
 }

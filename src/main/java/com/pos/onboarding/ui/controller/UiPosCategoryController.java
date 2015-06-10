@@ -159,21 +159,21 @@ public class UiPosCategoryController {
     public String addCategory(@Valid @ModelAttribute("categoryAttribute") Category category, BindingResult result) {
 		log.debug("Received request to add new category");
 		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Accept", "application/json");
-		
-		String categoryString = "";
-		categoryString = CustomJsonParser.ObjectToJsonString(category);
-		HttpEntity<String> entity = new HttpEntity<String>(categoryString, headers);
-    	log.debug("Calling WS with JSON [" + categoryString + "] of Category [" + category.toString() + "]");
-    	
-    	restTemplate.postForLocation(BASE_URL + "/ws/category", entity);
-    	
     	String resultString = "redirect:/ui/category-ui";
     	
     	if (result.hasErrors()) {
     		resultString = "categoryAdd";
+    	} else {
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.APPLICATION_JSON);
+    		headers.set("Accept", "application/json");
+    		
+    		String categoryString = "";
+    		categoryString = CustomJsonParser.ObjectToJsonString(category);
+    		HttpEntity<String> entity = new HttpEntity<String>(categoryString, headers);
+    		log.debug("Calling WS with JSON [" + categoryString + "] of Category [" + category.toString() + "]");
+    		
+    		restTemplate.postForLocation(BASE_URL + "/ws/category", entity);
     	}
     	
 		return resultString;
@@ -230,23 +230,22 @@ public class UiPosCategoryController {
     												Model model) {
     	log.debug("Received request to update category");
     
-    	category.setId(id);
-    	
-		HttpHeaders headers = new HttpHeaders();
-		headers.setContentType(MediaType.APPLICATION_JSON);
-		headers.set("Accept", "application/json");
-
-		String categoryString = "";
-		categoryString = CustomJsonParser.ObjectToJsonString(category);
-		HttpEntity<String> entity = new HttpEntity<String>(categoryString, headers);
-    	log.debug("Calling WS with JSON [" + categoryString + "] of Category [" + category.toString() + "]");
-		
-    	restTemplate.put(BASE_URL + "/ws/category/" + id.toString(), entity);
-    	
     	String resultString = "redirect:/ui/category-ui";
     	
     	if (result.hasErrors()) {
     		resultString = "categoryEdit";
+    	} else {
+    		category.setId(id);
+    		HttpHeaders headers = new HttpHeaders();
+    		headers.setContentType(MediaType.APPLICATION_JSON);
+    		headers.set("Accept", "application/json");
+    		
+    		String categoryString = "";
+    		categoryString = CustomJsonParser.ObjectToJsonString(category);
+    		HttpEntity<String> entity = new HttpEntity<String>(categoryString, headers);
+    		log.debug("Calling WS with JSON [" + categoryString + "] of Category [" + category.toString() + "]");
+    		
+    		restTemplate.put(BASE_URL + "/ws/category/" + id.toString(), entity);
     	}
     	
 		return resultString;
