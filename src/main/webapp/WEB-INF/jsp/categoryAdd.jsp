@@ -16,13 +16,11 @@
 			<%@ include file="menu.jsp" %>
 			<h3>${pageTitle}</h3>
 			<form:form class="well form-search" modelAttribute="categoryAttribute" method="POST" action="${saveUrl}">
-				<table>
-					<tr>
-						<td><form:label path="categoryName">Category Name:</form:label></td>
-						<td><form:input class="input-medium" path="categoryName"/></td>
-						<td><form:errors class="input-medium has-error" path="categoryName"/></td>
-					</tr>
-				</table>
+				<div class="form-group">
+					<form:label path="categoryName">Category Name:</form:label>
+					<form:input class="form-control" path="categoryName"/>
+					<form:errors class="input-medium has-error" path="categoryName"/>
+				</div>
 				<a class="btn btn-default" href="${listUrl}" role="button">Close</a>
 				<input class="btn btn-primary" type="submit" value="Save" />
 			</form:form>

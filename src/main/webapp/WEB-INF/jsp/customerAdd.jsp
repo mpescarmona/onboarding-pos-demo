@@ -16,28 +16,26 @@
 			<%@ include file="menu.jsp" %>
 			<h3>${pageTitle}</h3>
 			<form:form class="well form-search" modelAttribute="customerAttribute" method="POST" action="${saveUrl}">
-				<table>
-					<tr>
-						<td><form:label path="firstName">First Name:</form:label></td>
-						<td><form:input class="input-medium" path="firstName"/></td>
-						<td><form:errors class="input-medium has-error" path="firstName"/></td>
-					</tr>
-					<tr>
-						<td><form:label path="lastName">Last Name:</form:label></td>
-						<td><form:input class="input-medium" path="lastName"/></td>
-						<td><form:errors class="input-medium has-error" path="lastName"/></td>
-					</tr>
-					<tr>
-						<td><form:label path="phoneNumber">Phone Number:</form:label></td>
-						<td><form:input class="input-medium" path="phoneNumber"/></td>
-						<td><form:errors class="input-medium has-error" path="phoneNumber"/></td>
-					</tr>
-					<tr>
-						<td><form:label path="email">Email:</form:label></td>
-						<td><form:input class="input-medium" path="email"/></td>
-						<td><form:errors class="input-medium has-error" path="email"/></td>
-					</tr>
-				</table>
+					<div class="form-group">
+						<form:label path="firstName">First Name:</form:label>
+						<form:input class="form-control" path="firstName"/>
+						<form:errors class="input-medium has-error" path="firstName"/>
+					</div>
+					<div class="form-group">
+						<form:label path="lastName">Last Name:</form:label>
+						<form:input class="form-control" path="lastName"/>
+						<form:errors class="input-medium has-error" path="lastName"/>
+					</div>
+					<div class="form-group">
+						<form:label path="phoneNumber">Phone Number:</form:label>
+						<form:input class="form-control" path="phoneNumber"/>
+						<form:errors class="input-medium has-error" path="phoneNumber"/>
+					</div>
+					<div class="form-group">
+						<form:label path="email">Email:</form:label>
+						<form:input type="email" class="form-control" path="email"/>
+						<form:errors class="input-medium has-error" path="email"/>
+					</div>
 				<a class="btn btn-default" href="${listUrl}" role="button">Close</a>
 				<input class="btn btn-primary" type="submit" value="Save" />
 			</form:form>
