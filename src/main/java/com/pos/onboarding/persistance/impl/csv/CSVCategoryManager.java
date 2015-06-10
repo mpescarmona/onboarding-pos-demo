@@ -6,9 +6,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
@@ -16,16 +17,41 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.onboarding.beans.Category;
-import com.pos.onboarding.bl.ArticleBl;
 import com.pos.onboarding.persistance.CategoryManager;
 import com.pos.onboarding.util.Constants;
 
+@Service("categoryServiceCSV")
+@Transactional
 public class CSVCategoryManager implements CategoryManager {
-	private static final Logger log = LogManager.getLogger(ArticleBl.class);
+	
+	
+	private static final Logger log = LogManager
+			.getLogger(CSVCategoryManager.class);
 
-	Set<Category> categories = new HashSet<Category>();
+	Set<Category> categories = new TreeSet<Category>(new Comparator<Category>(){
+        @Override
+        public int compare(Category c1, Category c2) {
+        	if(c1 == null) {
+        		return c2 == null ? 0 : 1;
+        	} else if(c2 == null) {
+        		return -1;
+        	} else {
+            	if(c1.getId() == null) {
+            		return c2.getId() == null ? 0 : 1;
+            	} else if(c2.getId() == null) {
+            		return -1;
+            	} else {
+            		if (c1.getId().longValue() < c2.getId().longValue()) return -1; 
+            		if (c1.getId().longValue() > c2.getId().longValue()) return 1; 
+            		return 0;
+            	}
+        	}
+        }
+});
 
 	@Override
 	public Category getCategoryById(Long categoryId) {
@@ -37,7 +63,7 @@ public class CSVCategoryManager implements CategoryManager {
 		}
 
 		for (Category category : categories) {
-			if (category.getId() == categoryId) {
+			if (category.getId().equals(categoryId)) {
 				result = category;
 				break;
 			}
@@ -46,13 +72,17 @@ public class CSVCategoryManager implements CategoryManager {
 		log.trace(
 				"Return method getCategoryById. Method params: {}. Result: {}",
 				categoryId, result);
-
 		return result;
 	}
 
 	@Override
 	public Category createCategory(Category category) {
 		log.trace("Enter method createCategory. Method params: {}", category);
+		Long nextId = getNextId();
+		nextId = nextId != null ? nextId : 1l;
+		if (category.getId() == null) {
+			category.setId(nextId);
+		}
 
 		if (categories.isEmpty()) {
 			readCategoriesFromCsvFile();
@@ -72,7 +102,7 @@ public class CSVCategoryManager implements CategoryManager {
 
 	@Override
 	public boolean updateCategory(Category category) {
-		log.trace("Enter method createCategory. Method params: {}", category);
+		log.trace("Enter method updateCategory. Method params: {}", category);
 
 		boolean result = false;
 		if (categories.isEmpty()) {
@@ -107,6 +137,8 @@ public class CSVCategoryManager implements CategoryManager {
 		}
 		Category existingCategory = getCategoryById(categoryId);
 		if (existingCategory == null) {
+			categories.removeAll(categories);
+			readCategoriesFromCsvFile();
 			log.error(
 					"The provided category does not exists. Method prams: {}. Result: {}",
 					categoryId, result);
@@ -127,19 +159,40 @@ public class CSVCategoryManager implements CategoryManager {
 
 	@Override
 	public List<Category> getAllCategories(int pageNumber, int pageSize) {
-		log.trace("Enter method getAll.");
+		log.trace("Enter method getAllCategories.");
 
 		List<Category> result = new ArrayList<Category>();
 		if (categories.isEmpty()) {
 			readCategoriesFromCsvFile();
 		}
-
+		
+		int fromItem = (pageNumber - 1) * pageSize;
+		int toItem = fromItem + pageSize;
+		
+		int i = 0;
 		for (Category category : categories) {
-			result.add(category);
+			if (i >= fromItem && i < toItem) {
+				result.add(category);
+			}
+			i++;
 		}
 
-		log.trace("Return method getAll. Result: {}", result);
+		log.trace("Return method getAllCategories. Result: {}", result);
+		return result;
+	}
 
+	@Override
+	public Long getCount() {
+		log.trace("Enter method getCount.");
+
+		Long result = null;
+		if (categories.isEmpty()) {
+			readCategoriesFromCsvFile();
+		}
+
+		result = (long) categories.size();
+
+		log.trace("Return method getCount. Result: {}", result);
 		return result;
 	}
 
@@ -183,20 +236,18 @@ public class CSVCategoryManager implements CategoryManager {
 			}
 
 		}
-
 		log.trace("Return method readCategoriesFromCsvFile");
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void writeCategoriesToCsvFile() {
+		log.trace("Enter method writeCategoriesToCsvFile.");
 		FileWriter fileWriter = null;
 		CSVPrinter csvFilePrinter = null;
 
 		try {
-
 			// initialize FileWriter object
 			fileWriter = new FileWriter(Constants.CATEGORY_CSV_STORE, false);
-
 			// initialize CSVPrinter object
 			csvFilePrinter = new CSVPrinter(fileWriter,
 					CSVFormat.EXCEL
@@ -213,34 +264,33 @@ public class CSVCategoryManager implements CategoryManager {
 			log.debug("CSV file was created successfully !!!");
 
 		} catch (Exception e) {
-			System.out.println("Error in CsvFileWriter !!!");
-			e.printStackTrace();
+			log.error(
+					"There were errors trying to write CSV file. Error details: {}",
+					e.getMessage());
 		} finally {
 			try {
 				fileWriter.flush();
 				fileWriter.close();
 				csvFilePrinter.close();
 			} catch (IOException e) {
-				System.out
-						.println("Error while flushing/closing fileWriter/csvPrinter !!!");
-				e.printStackTrace();
+				log.error(
+						"There were errors while flushing/closing fileWriter/csvPrinter. Error details: {}",
+						e.getMessage());
 			}
+			log.trace("Return method writeCategoriesToCsvFile.");
 		}
 	}
+	
+	private Long getNextId() {
+		log.trace("Enter method getNextId.");
 
-	@Override
-	public Long getCount() {
-		log.trace("Enter method getCount.");
-
-		Long result = null;
-		if (categories.isEmpty()) {
-			readCategoriesFromCsvFile();
+		Long result = 1l;
+		for (Category category : categories) {
+			result = category.getId() > result ? category.getId() : result; 
 		}
-		
-		result = (long) categories.size();
+		result = result + 1;
 
-		log.trace("Return method getCount. Result: {}", result);
-
+		log.trace("Return method getNextId. Result: {}", result);
 		return result;
 	}
 

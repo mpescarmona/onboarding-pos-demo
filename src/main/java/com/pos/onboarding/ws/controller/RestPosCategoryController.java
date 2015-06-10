@@ -39,7 +39,8 @@ public class RestPosCategoryController {
 	protected static final Logger log = LogManager
 			.getLogger(RestPosCategoryController.class);
 
-	@Resource(name = "categoryServicePostgres")
+//	@Resource(name = "categoryServicePostgres")
+	@Resource(name = "categoryServiceCSV")
 	private CategoryManager categoryManager;
 
 	/**
