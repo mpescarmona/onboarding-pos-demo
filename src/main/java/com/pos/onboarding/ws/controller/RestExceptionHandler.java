@@ -21,16 +21,14 @@ public class RestExceptionHandler {
 		List<ErrorDescription> errorDescriptionList = new ArrayList<>();
 
 		for (FieldError error : errors) {
-
 			ErrorDescription errorDescription = new ErrorDescription();
-			errorDescription.setField(error.getField());
-			errorDescription.setMessage(error.getDefaultMessage());
-			errorDescription.setRejectedValue(error.getRejectedValue()
-					.toString());
-			errorDescription.setResourceName(error.getObjectName());
+			errorDescription.setField(error.getField() == null ? "null" : error.getField());
+			errorDescription.setMessage(error.getDefaultMessage() == null ? "null" : error.getDefaultMessage());
+			errorDescription.setRejectedValue(error.getRejectedValue() == null ? "null" : error.getRejectedValue().toString());
+			errorDescription.setResourceName(error.getObjectName() == null ? "null" : error.getObjectName());
 
 			errorDescriptionList.add(errorDescription);
-			errorString = errorString + error.getDefaultMessage();
+			errorString = errorString + error.getDefaultMessage() == null ? "null" : error.getDefaultMessage();
 		}
 
 		ErrorResource errorResource = new ErrorResource(HttpStatus.BAD_REQUEST,
