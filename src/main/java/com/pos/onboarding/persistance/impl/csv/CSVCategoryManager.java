@@ -166,7 +166,7 @@ public class CSVCategoryManager implements CategoryManager {
 			readCategoriesFromCsvFile();
 		}
 		
-		int fromItem = (pageNumber - 1) * pageSize;
+		int fromItem = ((pageNumber <= 0 ? 1 : pageNumber) - 1) * pageSize;
 		int toItem = fromItem + pageSize;
 		
 		int i = 0;
@@ -233,8 +233,11 @@ public class CSVCategoryManager implements CategoryManager {
 				log.error(
 						"Error while closing fileReader/csvFileParser !!!. The error was: {}",
 						e);
+			} catch (Exception e) {
+				log.error(
+						"Error while closing fileReader/csvFileParser !!!. The error was: {}",
+						e);
 			}
-
 		}
 		log.trace("Return method readCategoriesFromCsvFile");
 	}
@@ -276,6 +279,10 @@ public class CSVCategoryManager implements CategoryManager {
 				log.error(
 						"There were errors while flushing/closing fileWriter/csvPrinter. Error details: {}",
 						e.getMessage());
+			} catch (Exception e) {
+				log.error(
+						"Error while closing fileReader/csvFileParser !!!. The error was: {}",
+						e);
 			}
 			log.trace("Return method writeCategoriesToCsvFile.");
 		}
