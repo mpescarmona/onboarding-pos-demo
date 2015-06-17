@@ -35,7 +35,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>cors</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/ws/*</url-pattern>
 	</filter-mapping>
   
     <!--Spring ApplicationContext -->

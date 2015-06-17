@@ -10,10 +10,7 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.pos.onboarding.beans.Customer;
 import com.pos.onboarding.persistance.CustomerManager;
-import com.pos.onboarding.ws.error.resource.ErrorResource;
 import com.pos.onboarding.ws.exception.ResourceNotFoundException;
 
 /**
@@ -34,7 +30,7 @@ import com.pos.onboarding.ws.exception.ResourceNotFoundException;
  */
 @Controller
 @RequestMapping("/customer")
-public class RestPosCustomerController {
+public class RestPosCustomerController extends RestExceptionHandler {
 
 	protected static final Logger log = LogManager
 			.getLogger(RestPosCustomerController.class);
@@ -138,14 +134,5 @@ public class RestPosCustomerController {
 				"Return of request to get customer count. Result: {}", result);
 		
 		return result;
-	}
-	
-	@ExceptionHandler(MethodArgumentNotValidException.class)
-	public ResponseEntity<ErrorResource> handleHibernateValidation(
-			MethodArgumentNotValidException e) {
-
-		RestExceptionHandler exceptionHandler = new RestExceptionHandler();
-
-		return exceptionHandler.handleHibernateValidation(e);
 	}
 }
