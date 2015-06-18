@@ -3,8 +3,6 @@ package com.pos.onboarding.cli;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
@@ -17,14 +15,16 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Category;
 import com.pos.onboarding.persistance.CategoryManager;
 import com.pos.onboarding.persistance.impl.csv.CSVCategoryManager;
+import com.pos.onboarding.persistance.impl.postgres.dao.CategoryDAO;
 
 public class Cli {
 	private static final Logger log = LogManager.getLogger(Cli.class);
 
 	private CategoryManager categoryManager = new CSVCategoryManager();
+//	private CategoryManager categoryManager = new CategoryDAO();
 	
 	private String[] args = null;
 	private Options options = new Options();

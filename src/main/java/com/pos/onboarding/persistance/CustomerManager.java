@@ -2,7 +2,7 @@ package com.pos.onboarding.persistance;
 
 import java.util.List;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 
 public interface CustomerManager {
 	/**

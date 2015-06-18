@@ -1,4 +1,4 @@
-package com.pos.onboarding.beans;
+package com.pos.onboarding.bean;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.hibernate.validator.constraints.NotBlank;

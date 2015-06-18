@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 import com.pos.onboarding.ui.util.Link;
 import com.pos.onboarding.ui.util.LinksUtil;
 import com.pos.onboarding.util.CustomJsonParser;

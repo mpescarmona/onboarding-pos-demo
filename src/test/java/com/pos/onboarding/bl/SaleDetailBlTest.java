@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.pos.onboarding.beans.SaleDetail;
+import com.pos.onboarding.bean.SaleDetail;
 
 public class SaleDetailBlTest {
 

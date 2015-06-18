@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 
 public class CustomerBl {
 	private static final Logger log = LogManager.getLogger(CustomerBl.class);

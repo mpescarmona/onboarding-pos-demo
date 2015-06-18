@@ -5,7 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 
 public class CustomerBlTest {
 

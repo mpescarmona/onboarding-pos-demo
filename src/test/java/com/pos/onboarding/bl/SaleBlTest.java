@@ -7,7 +7,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Sale;
+import com.pos.onboarding.bean.Sale;
 
 public class SaleBlTest {
 

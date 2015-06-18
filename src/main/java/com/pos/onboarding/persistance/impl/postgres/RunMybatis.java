@@ -5,8 +5,8 @@ import java.math.BigDecimal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.Article;
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Article;
+import com.pos.onboarding.bean.Category;
 import com.pos.onboarding.persistance.impl.postgres.dao.ArticleDAO;
 import com.pos.onboarding.persistance.impl.postgres.dao.CategoryDAO;
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 
 public class CustomerTest {
 

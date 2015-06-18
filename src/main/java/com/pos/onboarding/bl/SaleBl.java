@@ -5,7 +5,7 @@ import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.Sale;
+import com.pos.onboarding.bean.Sale;
 
 public class SaleBl {
 	private static final Logger log = LogManager.getLogger(SaleBl.class);

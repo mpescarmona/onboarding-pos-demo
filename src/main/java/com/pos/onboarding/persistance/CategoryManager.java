@@ -2,7 +2,7 @@ package com.pos.onboarding.persistance;
 
 import java.util.List;
 
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Category;
 
 public interface CategoryManager {
 	/**

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.SaleDetail;
+import com.pos.onboarding.bean.SaleDetail;
 
 public class SaleDetailBl {
 	private static final Logger log = LogManager.getLogger(SaleDetailBl.class);

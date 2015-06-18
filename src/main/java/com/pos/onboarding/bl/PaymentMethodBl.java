@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.PaymentMethod;
+import com.pos.onboarding.bean.PaymentMethod;
 
 public class PaymentMethodBl {
 	private static final Logger log = LogManager.getLogger(PaymentMethodBl.class);

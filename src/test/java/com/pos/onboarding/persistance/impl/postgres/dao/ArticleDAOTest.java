@@ -13,8 +13,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Article;
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Article;
+import com.pos.onboarding.bean.Category;
 import com.pos.onboarding.persistance.ArticleManager;
 import com.pos.onboarding.persistance.CategoryManager;
 

@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
-import com.pos.onboarding.beans.Article;
+import com.pos.onboarding.bean.Article;
 
 public interface ArticleMapper {
 	static final String SELECT_BY_ID = "SELECT * from article WHERE id = #{id}";

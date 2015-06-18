@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.pos.onboarding.beans.Article;
+import com.pos.onboarding.bean.Article;
 import com.pos.onboarding.bl.ArticleBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.ArticleManager;

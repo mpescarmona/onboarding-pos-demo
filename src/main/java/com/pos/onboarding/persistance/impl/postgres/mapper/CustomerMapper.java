@@ -11,7 +11,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 
 public interface CustomerMapper {
 	static final String SELECT_BY_ID = "SELECT id, firstname, lastname, phonenumber, email from customer WHERE id = #{id}";

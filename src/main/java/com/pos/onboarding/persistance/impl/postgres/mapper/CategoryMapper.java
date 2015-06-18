@@ -12,7 +12,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.mapping.ResultSetType;
 import org.apache.ibatis.session.RowBounds;
 
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Category;
 
 public interface CategoryMapper {
 	static final String SELECT_BY_ID = "SELECT id, categoryname from category WHERE id = #{id}";

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Category;
 
 public class CategoryTest {
 

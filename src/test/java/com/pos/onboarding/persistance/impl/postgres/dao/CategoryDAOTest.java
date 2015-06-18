@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Category;
 import com.pos.onboarding.persistance.CategoryManager;
 import com.pos.onboarding.persistance.impl.postgres.dao.CategoryDAO;
 

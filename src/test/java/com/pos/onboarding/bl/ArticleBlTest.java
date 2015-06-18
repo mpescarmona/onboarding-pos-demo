@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 import org.junit.Test;
 
-import com.pos.onboarding.beans.Article;
+import com.pos.onboarding.bean.Article;
 
 public class ArticleBlTest {
 

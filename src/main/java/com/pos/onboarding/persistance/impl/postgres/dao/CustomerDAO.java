@@ -11,7 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pos.onboarding.beans.Customer;
+import com.pos.onboarding.bean.Customer;
 import com.pos.onboarding.bl.CustomerBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistance.CustomerManager;

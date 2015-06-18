@@ -20,7 +20,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.pos.onboarding.beans.Category;
+import com.pos.onboarding.bean.Category;
 import com.pos.onboarding.persistance.CategoryManager;
 import com.pos.onboarding.util.Constants;
 

@@ -1,4 +1,4 @@
-package com.pos.onboarding.beans;
+package com.pos.onboarding.bean;
 
 import java.math.BigDecimal;
 
