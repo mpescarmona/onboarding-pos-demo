@@ -1,7 +1,5 @@
 package com.pos.onboarding.ui.controller;
 
-import java.beans.PropertyEditorSupport;
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,8 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,56 +46,10 @@ public class UiPosCustomerController {
 	protected static final Logger log = LogManager
 			.getLogger(UiPosCustomerController.class);
 
-	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-		
-		binder.registerCustomEditor(Collection.class, "customer.id", new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String customerId) throws IllegalArgumentException {
-				if (customerId != null && !customerId.isEmpty()) {
-					if (customerId.trim().equalsIgnoreCase("NONE")) {
-						setValue(null);
-					} else {
-						setValue(Integer.valueOf(customerId));
-					}
-				} else {
-					setValue(null);
-				}
-			}
-
-			@Override
-			public String getAsText() {
-				return getValue() != null ? getValue().toString()
-						.replace("[", "").replace("]", "") : "";
-			}
-		});
-		
-		binder.registerCustomEditor(Collection.class, "customer", new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String customerId) throws IllegalArgumentException {
-				if (customerId != null && !customerId.isEmpty()) {
-					if (customerId.trim().equalsIgnoreCase("NONE")) {
-						setValue(null);
-					} else {
-						setValue(Integer.valueOf(customerId));
-					}
-				} else {
-					setValue(null);
-				}
-			}
-
-			@Override
-			public String getAsText() {
-				return getValue() != null ? getValue().toString()
-						.replace("[", "").replace("]", "") : "";
-			}
-		});
-	}
-	
-	
 	/**
 	 * Customer UI
 	 */
+	
 	/**
 	 * Handles and retrieves all customers and show it in a JSP page
 	 * 

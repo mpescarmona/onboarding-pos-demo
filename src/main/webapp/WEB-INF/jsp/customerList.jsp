@@ -14,8 +14,6 @@
 		<div class="container">
 			<%@ include file="menu.jsp" %>
 			<h3>${pageTitle}</h3>
-			<!-- <table style="border: 1px solid; width: 500px; text-align:center"> -->
-<!-- 			<table class="table table-striped table-bordered"> -->
 			<table class="table table-striped table-bordered table-condensed table-hover">
 				<thead style="background:#EBECE4">
 					<tr>

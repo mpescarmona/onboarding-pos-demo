@@ -1,7 +1,5 @@
 package com.pos.onboarding.ui.controller;
 
-import java.beans.PropertyEditorSupport;
-import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -16,8 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,53 +46,6 @@ public class UiPosCategoryController {
 	protected static final Logger log = LogManager
 			.getLogger(UiPosCategoryController.class);
 
-	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-		
-		binder.registerCustomEditor(Collection.class, "category.id", new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String categoryId) throws IllegalArgumentException {
-				if (categoryId != null && !categoryId.isEmpty()) {
-					if (categoryId.trim().equalsIgnoreCase("NONE")) {
-						setValue(null);
-					} else {
-						setValue(Integer.valueOf(categoryId));
-					}
-				} else {
-					setValue(null);
-				}
-			}
-
-			@Override
-			public String getAsText() {
-				return getValue() != null ? getValue().toString()
-						.replace("[", "").replace("]", "") : "";
-			}
-		});
-		
-		binder.registerCustomEditor(Collection.class, "category", new PropertyEditorSupport() {
-			@Override
-			public void setAsText(String categoryId) throws IllegalArgumentException {
-				if (categoryId != null && !categoryId.isEmpty()) {
-					if (categoryId.trim().equalsIgnoreCase("NONE")) {
-						setValue(null);
-					} else {
-						setValue(Integer.valueOf(categoryId));
-					}
-				} else {
-					setValue(null);
-				}
-			}
-
-			@Override
-			public String getAsText() {
-				return getValue() != null ? getValue().toString()
-						.replace("[", "").replace("]", "") : "";
-			}
-		});
-	}
-	
-	
 	/**
 	 * Category UI
 	 */
