@@ -21,7 +21,7 @@ public class CorsFilter extends OncePerRequestFilter {
 	private static final String CORS_ALLOW_METHOD_KEY = "Access-Control-Allow-Methods";
 	private static final String CORS_ALLOW_METHOD_VALUE = "GET, POST, PUT, DELETE";
 	private static final String CORS_ALLOW_HEADER_KEY = "Access-Control-Allow-Headers";
-	private static final String CORS_ALLOW_HEADER_VALUE = "Authorization";
+	private static final String CORS_ALLOW_HEADER_VALUE = "X-Requested-With, Content-Type, X-Codingpedia";
 	private static final String CORS_MAX_AGE_KEY = "Access-Control-Max-Age";
 	private static final String CORS_MAX_AGE_VALUE = "1728000";
 
