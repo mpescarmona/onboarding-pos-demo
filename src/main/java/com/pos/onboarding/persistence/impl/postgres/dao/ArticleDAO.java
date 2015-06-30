@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres.dao;
+package com.pos.onboarding.persistence.impl.postgres.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +12,8 @@ import org.apache.logging.log4j.Logger;
 import com.pos.onboarding.bean.Article;
 import com.pos.onboarding.bl.ArticleBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
-import com.pos.onboarding.persistance.ArticleManager;
-import com.pos.onboarding.persistance.impl.postgres.mapper.ArticleMapper;
+import com.pos.onboarding.persistence.ArticleManager;
+import com.pos.onboarding.persistence.impl.postgres.mapper.ArticleMapper;
 
 public class ArticleDAO implements ArticleManager{
 	private static final Logger log = LogManager.getLogger(ArticleDAO.class);

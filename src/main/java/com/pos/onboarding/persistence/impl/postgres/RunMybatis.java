@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres;
+package com.pos.onboarding.persistence.impl.postgres;
 
 import java.math.BigDecimal;
 
@@ -7,8 +7,8 @@ import org.apache.logging.log4j.Logger;
 
 import com.pos.onboarding.bean.Article;
 import com.pos.onboarding.bean.Category;
-import com.pos.onboarding.persistance.impl.postgres.dao.ArticleDAO;
-import com.pos.onboarding.persistance.impl.postgres.dao.CategoryDAO;
+import com.pos.onboarding.persistence.impl.postgres.dao.ArticleDAO;
+import com.pos.onboarding.persistence.impl.postgres.dao.CategoryDAO;
 
 
 public class RunMybatis {

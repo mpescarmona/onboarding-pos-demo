@@ -15,8 +15,10 @@ import org.junit.Test;
 
 import com.pos.onboarding.bean.Article;
 import com.pos.onboarding.bean.Category;
-import com.pos.onboarding.persistance.ArticleManager;
-import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistence.ArticleManager;
+import com.pos.onboarding.persistence.CategoryManager;
+import com.pos.onboarding.persistence.impl.postgres.dao.ArticleDAO;
+import com.pos.onboarding.persistence.impl.postgres.dao.CategoryDAO;
 
 public class ArticleDAOTest {
 	private static final Long CATEGORY_ID = 999l;

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.pos.onboarding.bean.Category;
-import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistence.CategoryManager;
 import com.pos.onboarding.ws.exception.ResourceNotFoundException;
 
 /**

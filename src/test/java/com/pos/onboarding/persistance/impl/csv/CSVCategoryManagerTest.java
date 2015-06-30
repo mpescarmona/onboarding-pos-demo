@@ -11,7 +11,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.pos.onboarding.bean.Category;
-import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistence.CategoryManager;
+import com.pos.onboarding.persistence.impl.csv.CSVCategoryManager;
 
 public class CSVCategoryManagerTest {
 	private static final Long ARTICLE_ID_1 = 1l;

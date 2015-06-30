@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres.dao;
+package com.pos.onboarding.persistence.impl.postgres.dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pos.onboarding.bean.Category;
 import com.pos.onboarding.bl.CategoryBl;
 import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
-import com.pos.onboarding.persistance.CategoryManager;
-import com.pos.onboarding.persistance.impl.postgres.mapper.CategoryMapper;
+import com.pos.onboarding.persistence.CategoryManager;
+import com.pos.onboarding.persistence.impl.postgres.mapper.CategoryMapper;
 
 @Service("categoryServicePostgres")
 @Transactional

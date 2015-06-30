@@ -16,9 +16,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.pos.onboarding.bean.Category;
-import com.pos.onboarding.persistance.CategoryManager;
-import com.pos.onboarding.persistance.impl.csv.CSVCategoryManager;
-import com.pos.onboarding.persistance.impl.postgres.dao.CategoryDAO;
+import com.pos.onboarding.persistence.CategoryManager;
+import com.pos.onboarding.persistence.impl.csv.CSVCategoryManager;
+import com.pos.onboarding.persistence.impl.postgres.dao.CategoryDAO;
 
 public class Cli {
 	private static final Logger log = LogManager.getLogger(Cli.class);

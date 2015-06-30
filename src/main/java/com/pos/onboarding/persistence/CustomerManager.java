@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance;
+package com.pos.onboarding.persistence;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.csv;
+package com.pos.onboarding.persistence.impl.csv;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.onboarding.bean.Category;
-import com.pos.onboarding.persistance.CategoryManager;
+import com.pos.onboarding.persistence.CategoryManager;
 import com.pos.onboarding.util.Constants;
 
 @Service("categoryServiceCSV")

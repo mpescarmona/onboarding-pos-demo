@@ -1,4 +1,4 @@
-package com.pos.onboarding.persistance.impl.postgres.mapper;
+package com.pos.onboarding.persistence.impl.postgres.mapper;
 
 import java.util.List;
 
