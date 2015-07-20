@@ -43,10 +43,10 @@ public class RestPosArticleController extends RestExceptionHandler {
 	 */
 
 	@RequestMapping(value = "", method = RequestMethod.GET, headers = "Accept=application/xml, application/json")
-	public @ResponseBody List<Article> getAllCategories(
+	public @ResponseBody List<Article> getAllArticles(
 			@RequestParam(value = "page", required = false, defaultValue = "0") int pageNumber,
 			@RequestParam(value = "size", required = false, defaultValue = "100") int pageSize) {
-		log.debug("Provider has received request to get all categories");
+		log.debug("Provider has received request to get all articles");
 
 		// Call service here
 		List<Article> result = new ArrayList<Article>();
@@ -54,7 +54,7 @@ public class RestPosArticleController extends RestExceptionHandler {
 		result = articleManager.getAllArticles(pageNumber, pageSize);
 
 		log.debug(
-				"Return of request to get all categories. Method params: {}. Result: {}",
+				"Return of request to get all articles. Method params: {}. Result: {}",
 				result);
 
 		return result;
