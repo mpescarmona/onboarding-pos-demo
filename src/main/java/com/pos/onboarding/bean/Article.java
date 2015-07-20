@@ -3,6 +3,7 @@ package com.pos.onboarding.bean;
 import java.math.BigDecimal;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * This class is used to hold the article data.-
@@ -12,10 +13,15 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
  */
 public class Article {
 	private Long id;
+	@NotBlank(message="Category is mandatory")
 	private Long categoryId;
+	@NotBlank(message="Article Name is mandatory")
 	private String name;
+	@NotBlank(message="Article Description is mandatory")
 	private String description;
+	@NotBlank(message="Price is mandatory")
 	private BigDecimal price;
+	@NotBlank(message="Inventory is mandatory")
 	private Long inventory;
 
 	public Long getId() {
