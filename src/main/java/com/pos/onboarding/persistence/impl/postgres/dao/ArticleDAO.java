@@ -8,6 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.pos.onboarding.bean.Article;
 import com.pos.onboarding.bl.ArticleBl;
@@ -15,6 +17,8 @@ import com.pos.onboarding.connection.impl.ibatis.MyBatisUtil;
 import com.pos.onboarding.persistence.ArticleManager;
 import com.pos.onboarding.persistence.impl.postgres.mapper.ArticleMapper;
 
+@Service("articleServicePostgres")
+@Transactional
 public class ArticleDAO implements ArticleManager{
 	private static final Logger log = LogManager.getLogger(ArticleDAO.class);
 	
@@ -91,11 +95,9 @@ public class ArticleDAO implements ArticleManager{
 	}
 
 	@Override
-	public boolean removeArticle(Article article) {
-		log.trace("Enter method removeArticle. Method params: {}", article);
+	public boolean removeArticle(Long articleId) {
+		log.trace("Enter method removeArticle. Method params: {}", articleId);
 		boolean result = false;
-		
-		Long articleId = article.getId();
 		
 		SqlSession session = sessionFactory.openSession();
 		try {
@@ -105,20 +107,20 @@ public class ArticleDAO implements ArticleManager{
 			if (existingArticle == null) {
 				log.error(
 						"The provided article does not exists. Method prams: {}. Result: {}",
-						article, result);
+						articleId, result);
 			} else {
 				mapper.deleteArticle(articleId);
 				result = true;
 				log.debug(
 						"The provided article was successfully removed. Method prams: {}. Result: {}",
-						article, result);
+						articleId, result);
 			}
 			session.commit();
 		} finally {
 			session.close();
 			log.trace(
 					"Return method removeArticle. Method params: {}. Result: {}",
-					article, result);
+					articleId, result);
 		}
 		
 		return result;

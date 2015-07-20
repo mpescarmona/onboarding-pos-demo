@@ -39,7 +39,7 @@ public interface ArticleManager {
 	 * @param article
 	 * @return true when the article was properly removed, otherwise, false.
 	 */
-	public boolean removeArticle(Article article);
+	public boolean removeArticle(Long articleId);
 
 	/**
 	 * Retrieves all the Articles.

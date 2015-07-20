@@ -91,7 +91,7 @@ public class ArticleDAOTest {
 	public void tearDown() {
 		List<Article> articles = articleManager.getAllArticles(1, 100);
 		for (Article article : articles) {
-			articleManager.removeArticle(article);
+			articleManager.removeArticle(article.getId());
 		}
 		
 		categoryManager.removeCategory(CATEGORY_ID);
@@ -156,7 +156,7 @@ public class ArticleDAOTest {
 				.getArticleById(ARTICLE_ID_3);
 		assertNotNull(retrievedArticle);
 
-		assertTrue(articleManager.removeArticle(retrievedArticle));
+		assertTrue(articleManager.removeArticle(retrievedArticle.getId()));
 
 		Article removedArticle = articleManager
 				.getArticleById(ARTICLE_ID_3);
