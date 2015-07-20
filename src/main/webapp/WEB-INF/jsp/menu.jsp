@@ -1,6 +1,7 @@
 			<div class="container">
 				<c:url var="billsUrl" value="#" />
 				<c:url var="categoriesUrl" value="/ui/category-ui" />
+				<c:url var="articlesUrl" value="/ui/article-ui" />
 				<c:url var="customersUrl" value="/ui/customer-ui" />
 				<div class="row">
 					<div class="span12">
@@ -14,6 +15,7 @@
 						      	</a>
 						      	<ul class="dropdown-menu">
 									<li><a href="${categoriesUrl}">Categories</a></li>
+									<li><a href="${articlesUrl}">Articles</a></li>
 									<li><a href="${customersUrl}">Customers</a></li>
 						      	</ul>
 						      </li>
