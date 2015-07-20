@@ -34,7 +34,7 @@ public interface CategoryManager {
 	public boolean updateCategory(Category category);
 
 	/**
-	 * Removes the given {@l Category} instance
+	 * Removes the given {@link Category} instance
 	 * 
 	 * @param categoryId
 	 * @return true when the category was properly removed, otherwise, false.
